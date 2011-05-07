@@ -12,31 +12,41 @@ package nadilus.orbis.data
 	
 	public class GameData
 	{
-		private var game:OrbisGame
-		private var blockTypes:Object
-		private var gameLevels:Array
+		private var game:OrbisGame;
+		private var blockTypes:Object;
+		private var gameLevels:Array;
+		private var xmlFileName:String;
 		
-		public function GameData(game:OrbisGame)
+		private var xml:XML;
+		
+		public function GameData(game:OrbisGame, xmlFileName:String)
 		{
 			this.game = game;
 			this.gameLevels = new Array();
 			this.blockTypes = new Object();
+			this.xmlFileName = xmlFileName;
 		}
 		
 		public function loadAndParseXml():void
 		{
-			var xmlString:String = loadXml();
-			parse(xmlString);
+			readXML();
 		}
 		
-		private function loadXml():String
-		{
-			var byteArray:ByteArray = new OrbisXmlData();
-			return byteArray.toString(); 
+		private function readXML():void {
+			var loader:URLLoader = new URLLoader(new URLRequest(xmlFileName));
+			loader.addEventListener(Event.COMPLETE, xmlLoaded);
+		}
+		
+		private function xmlLoaded(e:Event):void {
+			trace("XML Loaded from: " + xmlFileName);
+			xml = new XML(e.target.data);
+			trace(xml.toXMLString());
+			parse(xml.toXMLString());
 		}
 		
 		private function parse(xmlString:String):void
 		{
+			trace("Begin parsing XML.");
 			var xmlDocument:XMLDocument = new XMLDocument();
 			xmlDocument.parseXML(xmlString);
 			
@@ -54,7 +64,7 @@ package nadilus.orbis.data
 							if (blockTypeNode.nodeName == "BlockType")
 							{
 								var symbol:String = blockTypeNode.attributes.Symbol;
-								var blockTypeData:BlockTypeData = blockTypeNode.constructFromXmlNodeAttributes(blockTypeNode.attributes);
+//								var blockTypeData:BlockTypeData = blockTypeNode.constructFromXmlNodeAttributes(blockTypeNode.attributes);
 								this.blockTypes[symbol] = blockTypeNode;
 							}
 							blockTypeNode = blockTypeNode.nextSibling;
@@ -67,8 +77,8 @@ package nadilus.orbis.data
 						{
 							if (levelNode.nodeName == "Level")
 							{
-								var gameLevelData:GameLevelData = GameLevelData.constructFromXmlNode(levelNode);
-								this.gameLevels.push(gameLevelData);
+								//var gameLevelData:GameLevelData = GameLevelData.constructFromXmlNode(levelNode);
+								//this.gameLevels.push(gameLevelData);
 							}
 							levelNode = levelNode.nextSibling;
 						}
@@ -76,7 +86,7 @@ package nadilus.orbis.data
 					xmlNode = xmlNode.nextSibling;
 				}
 			}
-			game.runGameStartScreen();
+			//game.runGameStartScreen();
 		}
 	}
 }

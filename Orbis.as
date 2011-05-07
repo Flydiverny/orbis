@@ -9,6 +9,7 @@ package
 		public function Orbis()
 		{
 			var game:OrbisGame = new OrbisGame();
+			addChild(game);
 		}
 	}
 }
