@@ -20,25 +20,25 @@
 		<pngDefaultName>1</pngDefaultName>
 		<qtDefaultName>1</qtDefaultName>
 		<rnwkDefaultName>1</rnwkDefaultName>
-		<flashFileName>X:\Adobe Flash Builder
-			4\FlashGame\bin-debug\FlashGame.swf</flashFileName>
-		<projectorWinFileName>FlashGame.exe</projectorWinFileName>
-		<projectorMacFileName>FlashGame.app</projectorMacFileName>
-		<htmlFileName>X:\Adobe Flash Builder
-			4\FlashGame\bin-debug\FlashGame.html</htmlFileName>
-		<gifFileName>FlashGame.gif</gifFileName>
-		<jpegFileName>FlashGame.jpg</jpegFileName>
-		<pngFileName>FlashGame.png</pngFileName>
-		<qtFileName>FlashGame.mov</qtFileName>
-		<rnwkFileName>FlashGame.smil</rnwkFileName>
+		<flashFileName>X:\dev\Adobe Flash Builder
+			4\VitaMari\bin-debug\VitaMari.swf</flashFileName>
+		<projectorWinFileName>VitaMari.exe</projectorWinFileName>
+		<projectorMacFileName>VitaMari.app</projectorMacFileName>
+		<htmlFileName>X:\dev\Adobe Flash Builder
+			4\VitaMari\bin-debug\VitaMari.html</htmlFileName>
+		<gifFileName>VitaMari.gif</gifFileName>
+		<jpegFileName>VitaMari.jpg</jpegFileName>
+		<pngFileName>VitaMari.png</pngFileName>
+		<qtFileName>VitaMari.mov</qtFileName>
+		<rnwkFileName>VitaMari.smil</rnwkFileName>
 	</PublishFormatProperties>
 	<PublishHtmlProperties enabled="true">
 		<VersionDetectionIfAvailable>0</VersionDetectionIfAvailable>
 		<VersionInfo>10,1,52,0;9,0,124,0;8,0,24,0;7,0,14,0;6,0,79,0;5,0,58,0;4,0,32,0;3,0,8,0;2,0,1,12;1,0,0,1;</VersionInfo>
 		<UsingDefaultContentFilename>1</UsingDefaultContentFilename>
 		<UsingDefaultAlternateFilename>1</UsingDefaultAlternateFilename>
-		<ContentFilename>FlashGame_content.html</ContentFilename>
-		<AlternateFilename>FlashGame_alternate.html</AlternateFilename>
+		<ContentFilename>VitaMari_content.html</ContentFilename>
+		<AlternateFilename>VitaMari_alternate.html</AlternateFilename>
 		<UsingOwnAlternateFile>0</UsingOwnAlternateFile>
 		<OwnAlternateFilename></OwnAlternateFilename>
 		<Width>550</Width>
