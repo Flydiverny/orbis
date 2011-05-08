@@ -6,12 +6,14 @@ package nadilus.orbis
 	public class Utilities
 	{
 		public static function setRGB(e:Object, color:uint):void {
+			trace("Utilities: setRGB(): Called: " + e + " " + color);
 			var c:ColorTransform = e.transform.colorTransform;
 			c.color = color;
 			e.transform.colorTransform = c;
 		}
 		
 		public static function parseBoolean(value:Object):Boolean {
+			trace("Utilities: parseBoolean(): Called: " + value);
 			switch(value) {
 				case "1":
 				case "true":
@@ -28,6 +30,7 @@ package nadilus.orbis
 		
 		public static function createHueShiftColorMatrixFilter(angle:Number):ColorMatrixFilter
 		{
+			trace("Utilities: createHueShiftColorMatrixFilter(): Called: " + angle);
 			angle *= Math.PI/180;
 			
 			var c:Number = Math.cos(angle);
@@ -49,6 +52,7 @@ package nadilus.orbis
 		}
 		
 		public static function setHue(e:Object, angle:Number):void {
+			trace("Utilities: setHue(): Called: " + e + " " + angle);
 			var filters:Array = new Array();
 			filters.push(Utilities.createHueShiftColorMatrixFilter(angle));
 			e.filters = filters;

@@ -1,4 +1,4 @@
-package nadilus.orbis.game
+package nadilus.orbis.screens.game
 {
 	import flash.display.MovieClip;
 	

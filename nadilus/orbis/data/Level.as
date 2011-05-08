@@ -31,6 +31,10 @@ package nadilus.orbis.data
 			this.special_OrbSplit	= true;
 		}
 		
+		public function drawLevel(blockTypes:Object) {
+			
+		}
+		
 		public static function constructFromXmlNode(node:XMLNode):Level {
 			trace("Level: constructFromXmlNode(): Called");
 			var level:Level = new Level();

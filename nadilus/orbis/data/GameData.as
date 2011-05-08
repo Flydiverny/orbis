@@ -8,14 +8,14 @@ package nadilus.orbis.data
 	import flash.xml.XMLNode;
 	import flash.xml.XMLNodeType;
 	
-	import nadilus.orbis.game.OrbisGame;
+	import nadilus.orbis.screens.OrbisGame;
 	import nadilus.orbis.data.BlockType;
 	
 	public class GameData
 	{
-		private var game:OrbisGame;
-		private var blockTypes:Object;
-		private var gameLevels:Array;
+		private var _game:OrbisGame;
+		private var _blockTypes:Object;
+		private var _gameLevels:Array;
 		
 		[Embed(source="assets/Orbis.xml", mimeType="application/octet-stream")]
 		protected const OrbisXMLData:Class;
@@ -23,11 +23,21 @@ package nadilus.orbis.data
 		private var xml:XML;
 		
 		public function GameData(game:OrbisGame) {
-			this.game = game;
-			this.gameLevels = new Array();
-			this.blockTypes = new Object();
+			this._game = game;
+			this._gameLevels = new Array();
+			this._blockTypes = new Object();
 		}
 		
+		public function get blockTypes():Object
+		{
+			return _blockTypes;
+		}
+		
+		public function get gameLevels():Array
+		{
+			return _gameLevels;
+		}
+
 		public function loadAndParseXml():void {
 			trace("GameData: loadAndParseXml(): Called");
 			var byteArray:ByteArray = new OrbisXMLData();
@@ -62,7 +72,7 @@ package nadilus.orbis.data
 					xmlNode = xmlNode.nextSibling;
 				}
 			}
-			//game.runGameStartScreen();
+			_game.runMenuScreen();
 		}
 		
 		private function readBlockTypes(xmlNode:XMLNode):void {
@@ -75,7 +85,7 @@ package nadilus.orbis.data
 					trace("GameData: readBlockTypes(): Reading BlockType: " + blockTypeNode.attributes.Symbol);
 					var symbol:String = blockTypeNode.attributes.Symbol;
 					var blockType:BlockType = BlockType.constructFromXmlNode(blockTypeNode.attributes);
-					this.blockTypes[symbol] = blockTypeNode;
+					this._blockTypes[symbol] = blockTypeNode;
 				}
 				
 				blockTypeNode = blockTypeNode.nextSibling;
@@ -90,7 +100,7 @@ package nadilus.orbis.data
 				if (levelNode.nodeName == "Level") {
 					trace("GameData: readLevelNodes(): Reading Level");
 					var levelData:Level = Level.constructFromXmlNode(levelNode);
-					this.gameLevels.push(levelData);
+					this._gameLevels.push(levelData);
 				}
 				
 				levelNode = levelNode.nextSibling;
