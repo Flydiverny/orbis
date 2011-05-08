@@ -7,7 +7,7 @@ package nadilus.orbis.data
 	public class BlockType
 	{
 		private var symbol:String;
-		private var rgb:uint;
+		private var hueShiftAngle:Number;
 		private var speedMultiplier:Number;
 		private var score:uint;
 		private var specialChance:uint;
@@ -18,7 +18,7 @@ package nadilus.orbis.data
 		public function BlockType()
 		{
 			this.symbol				=	"1"
-			this.rgb				=	0xFF0000;
+			this.hueShiftAngle		=	1;
 			this.speedMultiplier	=	1.02;
 			this.score				=	1;
 			this.specialChance		=	0;
@@ -36,9 +36,9 @@ package nadilus.orbis.data
 				blockType.symbol = attributes.Symbol;
 			}
 			
-			if(attributes.RGB != null) {
-				trace("BlockType: constructFromXmlNode(): Attribute Found: RGB");
-				blockType.rgb = parseInt(attributes.RGB);
+			if(attributes.HueShiftAngle != null) {
+				trace("BlockType: constructFromXmlNode(): Attribute Found: HueShiftAngle");
+				blockType.hueShiftAngle = parseInt(attributes.HueShiftAngle);
 			}
 			
 			if(attributes.SpeedMultiplier != null) {
@@ -66,7 +66,7 @@ package nadilus.orbis.data
 				blockType.hitsToBreak = parseInt(attributes.HitsToBreak);
 			}
 
-			trace("BlockType: constructFromXmlNode(): BlockType Created: Symbol:" + blockType.symbol + " RGB: " + blockType.rgb + " SpeedMultiplier: " + blockType.speedMultiplier + " Score: " + blockType.score + " SpecialChance: " + blockType.specialChance + " Destroyable: " + blockType.destroyable + " HitsToBreak: " + blockType.hitsToBreak);
+			trace("BlockType: constructFromXmlNode(): BlockType Created: Symbol: " + blockType.symbol + " HueShiftAngle: " + blockType.hueShiftAngle + " SpeedMultiplier: " + blockType.speedMultiplier + " Score: " + blockType.score + " SpecialChance: " + blockType.specialChance + " Destroyable: " + blockType.destroyable + " HitsToBreak: " + blockType.hitsToBreak);
 			return blockType;
 		}
 	}

@@ -1,14 +1,15 @@
 <Orbis>
 	<BlockTypes>
-		<BlockType Symbol="0" RGB="0xFF0000" SpeedMultiplier="1.02" Score="100" Destroyable="true" HitsToBreak="1" SpecialChance="0"></BlockType>
-		<BlockType Symbol="1" RGB="0x00FF00" Score="200" SpeedMultiplier="1.02"
-			Destroyable="true" HitsToBreak="1" SpecialChance="75">
+		<BlockType Symbol="0" SpeedMultiplier="1.02" Score="100" Destroyable="true" HitsToBreak="1" SpecialChance="0" HueShiftAngle="200"></BlockType>
+		<BlockType Symbol="1" Score="200" SpeedMultiplier="1.02"
+			Destroyable="true" HitsToBreak="1" SpecialChance="75" HueShiftAngle="1">
 		</BlockType></BlockTypes>
 	<Levels>
 		<Level ScoreToWin="10000" InitialOrbCount="3" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
-				<Line Blocks="_0__505_506"></Line>
-				<Line Blocks="4_4_5_____5"></Line>
-				<Line Blocks="3_3_515__65"></Line>
-				<Line Blocks="333___5___5"></Line>
-				<Line Blocks="3_3_535_636"></Line></BlockLines></Level></Levels></Orbis>
+				<BlockLine Blocks="_0__505_506"></BlockLine>
+				<BlockLine Blocks="4_4_5_____5"></BlockLine>
+				<BlockLine Blocks="3_3_515__65"></BlockLine>
+				<BlockLine Blocks="333___5___5"></BlockLine>
+				<BlockLine Blocks="3_3_535_636"></BlockLine></BlockLines>
+			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool></Level></Levels></Orbis>

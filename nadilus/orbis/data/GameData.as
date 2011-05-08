@@ -65,10 +65,10 @@ package nadilus.orbis.data
 			//game.runGameStartScreen();
 		}
 		
-		private function readBlockTypes(xmlNode:XMLNode):void
-		{
+		private function readBlockTypes(xmlNode:XMLNode):void {
 			trace("GameData: readBlockTypes(): Called");
 			var blockTypeNode:XMLNode = xmlNode.firstChild;
+			
 			while (blockTypeNode != null)
 			{
 				if (blockTypeNode.nodeName == "BlockType") {
@@ -82,18 +82,17 @@ package nadilus.orbis.data
 			}
 		}
 		
-		private function readLevelNodes(xmlNode:XMLNode):void
-		{
+		private function readLevelNodes(xmlNode:XMLNode):void {
 			trace("GameData: readLevelNodes(): Called");
 			var levelNode:XMLNode = xmlNode.firstChild;
-			while (levelNode != null)
-			{
-				if (levelNode.nodeName == "Level")
-				{
+			
+			while (levelNode != null) {
+				if (levelNode.nodeName == "Level") {
 					trace("GameData: readLevelNodes(): Reading Level");
-					//var gameLevelData:GameLevelData = GameLevelData.constructFromXmlNode(levelNode);
-					//this.gameLevels.push(gameLevelData);
+					var levelData:Level = Level.constructFromXmlNode(levelNode);
+					this.gameLevels.push(levelData);
 				}
+				
 				levelNode = levelNode.nextSibling;
 			}
 		}

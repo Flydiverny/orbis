@@ -18,7 +18,6 @@ package nadilus.orbis.game
 			_gameData.loadAndParseXml();
 			platform = new Platform();
 			addChild(platform);
-			Utilities.setRGB(platform, 0xFF0000);
 		}
 	}
 }

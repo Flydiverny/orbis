@@ -1,6 +1,7 @@
 package nadilus.orbis
 {
 	import flash.geom.ColorTransform;
+	import flash.filters.ColorMatrixFilter;
 
 	public class Utilities
 	{
@@ -23,6 +24,34 @@ package nadilus.orbis
 				default:
 					return Boolean(value);
 			}
+		}
+		
+		public static function createHueShiftColorMatrixFilter(angle:Number):ColorMatrixFilter
+		{
+			angle *= Math.PI/180;
+			
+			var c:Number = Math.cos(angle);
+			var s:Number = Math.sin(angle);
+			
+			var mulR:Number = 0.213;
+			var mulG:Number = 0.715;
+			var mulB:Number = 0.072;
+			
+			var matrix:Array = new Array();
+			
+			matrix = matrix.concat([(mulR + (c * (1 - mulR))) + (s * (-mulR)), (mulG + (c * (-mulG))) + (s * (-mulG)), (mulB + (c * (-mulB))) + (s * (1 - mulB)), 0, 0]);
+			matrix = matrix.concat([(mulR + (c * (-mulR))) + (s * 0.143), (mulG + (c * (1 - mulG))) + (s * 0.14), (mulB + (c * (-mulB))) + (s * -0.283), 0, 0]);
+			matrix = matrix.concat([(mulR + (c * (-mulR))) + (s * (-(1 - mulR))), (mulG + (c * (-mulG))) + (s * mulG), (mulB + (c * (1 - mulB))) + (s * mulB), 0, 0]);
+			matrix = matrix.concat([0, 0, 0, 1, 0]);
+			
+			var filter:ColorMatrixFilter = new ColorMatrixFilter(matrix);
+			return filter;
+		}
+		
+		public static function setHue(e:Object, angle:Number):void {
+			var filters:Array = new Array();
+			filters.push(Utilities.createHueShiftColorMatrixFilter(angle));
+			e.filters = filters;
 		}
 	}
 }
