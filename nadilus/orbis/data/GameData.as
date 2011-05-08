@@ -85,7 +85,7 @@ package nadilus.orbis.data
 					trace("GameData: readBlockTypes(): Reading BlockType: " + blockTypeNode.attributes.Symbol);
 					var symbol:String = blockTypeNode.attributes.Symbol;
 					var blockType:BlockType = BlockType.constructFromXmlNode(blockTypeNode.attributes);
-					this._blockTypes[symbol] = blockTypeNode;
+					this._blockTypes[symbol] = blockType;
 				}
 				
 				blockTypeNode = blockTypeNode.nextSibling;

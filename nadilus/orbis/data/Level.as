@@ -1,29 +1,36 @@
 package nadilus.orbis.data
 {
+	import flash.display.Sprite;
 	import flash.xml.XMLNode;
 	
 	import nadilus.orbis.Utilities;
+	import nadilus.orbis.screens.game.Block;
 
-	public class Level
+	public class Level extends Sprite
 	{
 		private var scoreToWin:uint;
 		private var initialOrbCount:uint;
 		private var maximumOrbsToLose:uint;
 		private var specialsCount:uint;
 
+		private var blockSymbols:Array;
 		private var blocks:Array;
 		
 		private var special_SpeedUp:Boolean;
 		private var special_SpeedDown:Boolean;
 		private var special_OrbSplit:Boolean;
 		
+		private var _levelDrawn:Boolean;
+		
 		public function Level()
 		{
+			trace("Level: Level(): Called");
 			this.scoreToWin			= 1;
 			this.initialOrbCount	= 1;
 			this.maximumOrbsToLose	= 1;
 			this.specialsCount		= 1;
 			
+			this.blockSymbols		= new Array();
 			this.blocks				= new Array();
 			
 			this.special_SpeedUp	= true;
@@ -31,8 +38,27 @@ package nadilus.orbis.data
 			this.special_OrbSplit	= true;
 		}
 		
-		public function drawLevel(blockTypes:Object) {
-			
+		public function drawLevel(blockTypes:Object):void {
+			trace("Level: drawLevel(): Called");
+			if(_levelDrawn == false) {
+				var blockRow:uint = 0;
+				for each(var line:Array in blockSymbols) {
+					var blockNum:uint = 0;
+					var row:Array = new Array();
+					for each(var symbol:String in line) {
+						var blockType:BlockType = blockTypes[symbol];
+						
+						if(blockType != null) {
+							var block:Block = new Block(blockType, blockRow, blockNum);
+
+							row.push(block);
+							blockNum++;
+						}
+					}
+					blocks.push(row);
+					blockRow++;
+				}
+			}
 		}
 		
 		public static function constructFromXmlNode(node:XMLNode):Level {
@@ -73,7 +99,7 @@ package nadilus.orbis.data
 								blocksArray.push(blockSymbols.charAt(i));
 							}
 							
-							level.blocks.push(blocksArray);
+							level.blockSymbols.push(blocksArray);
 							trace("Level: constructFromXmlNode(): BlockLine added: " + blockSymbols);
 						}
 					}
