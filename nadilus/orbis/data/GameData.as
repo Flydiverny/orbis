@@ -16,26 +16,24 @@ package nadilus.orbis.data
 		private var game:OrbisGame;
 		private var blockTypes:Object;
 		private var gameLevels:Array;
-		private var xmlFileName:String;
+		
+		[Embed(source="Orbis.xml", mimeType="application/octet-stream")]
+		protected const OrbisXMLData:Class;
 		
 		private var xml:XML;
 		
-		public function GameData(game:OrbisGame, xmlFileName:String) {
+		public function GameData(game:OrbisGame) {
 			this.game = game;
 			this.gameLevels = new Array();
 			this.blockTypes = new Object();
-			this.xmlFileName = xmlFileName;
 		}
 		
 		public function loadAndParseXml():void {
-			var loader:URLLoader = new URLLoader(new URLRequest(xmlFileName));
-			loader.addEventListener(Event.COMPLETE, xmlLoaded);
-		}
-		
-		private function xmlLoaded(e:Event):void {
-			trace("GameData: xmlLoaded(): XML Loaded from: " + xmlFileName);
-			xml = new XML(e.target.data);
-			trace(xml.toXMLString());
+			trace("GameData: loadAndParseXml(): Called");
+			var byteArray:ByteArray = new OrbisXMLData();
+			xml = new XML(byteArray.toString());
+			trace("GameData: loadAndParseXml(): XML Loaded.");
+			//trace(xml.toXMLString());
 			parse(xml.toXMLString());
 		}
 		
@@ -46,19 +44,18 @@ package nadilus.orbis.data
 			
 			var xmlNode:XMLNode = xmlDocument.firstChild;
 			trace("GameData: parse(): First Node: " + xmlNode.nodeName);
-			if (xmlNode.nodeName == "Orbis")
-			{
+			if (xmlNode.nodeName == "Orbis") {
+				
 				trace("GameData: parse(): Orbis node found");
 				xmlNode = xmlNode.firstChild;
-				while (xmlNode != null)
-				{
-					if (xmlNode.nodeName == "BlockTypes")                    
-					{
+				
+				while (xmlNode != null) {
+					if (xmlNode.nodeName == "BlockTypes") {
 						trace("GameData: parse(): Block types found");
 						readBlockTypes(xmlNode);
 					}
-					if (xmlNode.nodeName == "Levels")
-					{
+					
+					if (xmlNode.nodeName == "Levels") {
 						trace("GameData: parse(): Levels found");
 						readLevelNodes(xmlNode);
 					}

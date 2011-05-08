@@ -14,7 +14,7 @@ package nadilus.orbis.game
 		
 		public function OrbisGame()
 		{
-			_gameData = new GameData(this,"Orbis.xml");
+			_gameData = new GameData(this);
 			_gameData.loadAndParseXml();
 			platform = new Platform();
 			addChild(platform);
