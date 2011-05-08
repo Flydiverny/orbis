@@ -17,7 +17,7 @@ package nadilus.orbis.data
 		private var blockTypes:Object;
 		private var gameLevels:Array;
 		
-		[Embed(source="Orbis.xml", mimeType="application/octet-stream")]
+		[Embed(source="assets/Orbis.xml", mimeType="application/octet-stream")]
 		protected const OrbisXMLData:Class;
 		
 		private var xml:XML;
