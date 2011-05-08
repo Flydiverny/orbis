@@ -1,4 +1,4 @@
-package
+package nadilus.orbis
 {
 	import flash.display.Sprite;
 	
