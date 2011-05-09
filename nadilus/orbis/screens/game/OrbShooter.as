@@ -1,9 +1,11 @@
 package nadilus.orbis.screens.game
 {
 	import flash.display.MovieClip;
-	import nadilus.orbis.data.Level;
-	import nadilus.orbis.Utilities;
 	import flash.geom.Point;
+	
+	import nadilus.orbis.Utilities;
+	import nadilus.orbis.data.Level;
+	import nadilus.orbis.vector.Vect;
 
 	public class OrbShooter extends MovieClip
 	{
@@ -19,12 +21,12 @@ package nadilus.orbis.screens.game
 		public function fireOrb(lvl:Level):void {
 			trace("OrbShooter: fireOrb(): Called: " + lvl);
 			if(this._orbMagazine > 0) {
-				
+				// DO NOT CHANGE THIS IS FINAL
 				var pt:Point = Utilities.degreesToXY(50, this.rotation+90);
-				var orb:Orb =  new Orb(pt.x,pt.y,lvl,this._player);
+				var pt1:Point = new Point(pt.x+lvl.width/2,pt.y);
 				
-				orb.x = pt.x + lvl.width/2;
-				orb.y = pt.y;
+				var vect:Vect = new Vect(new Point(lvl.width/2,0), pt1);
+				var orb:Orb =  new Orb(vect,lvl,this._player);
 				
 				lvl.addChild(orb);
 				_orbMagazine--;
