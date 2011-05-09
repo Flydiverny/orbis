@@ -20,6 +20,7 @@ package nadilus.orbis.screens.game
 			this._blockRow	= blockRow;
 			
 			this.width = GameConstants.BLOCK_WIDTH;
+			this.height = GameConstants.BLOCK_HEIGHT;
 			
 			Utilities.setHue(this, _blockType.hueShiftAngle);
 		}

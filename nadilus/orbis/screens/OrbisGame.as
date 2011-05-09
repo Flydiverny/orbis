@@ -9,6 +9,8 @@ package nadilus.orbis.screens
 	import nadilus.orbis.screens.game.Platform;
 	import nadilus.orbis.screens.loading.LoadingScreen;
 	import nadilus.orbis.screens.menu.MenuScreen;
+	import flash.display.Stage;
+	import flash.events.Event;
 	
 	public class OrbisGame extends Sprite
 	{
@@ -16,9 +18,18 @@ package nadilus.orbis.screens
 		private var _gameData:GameData;
 		private var _player:Platform;
 		
+		public static var gStage:Stage;
+		
 		public function OrbisGame() {
 			trace("OrbisGame: OrbisGame(): Called");
 			//runLoadingScreen()
+			this.addEventListener(Event.ADDED_TO_STAGE, ini);
+		}
+		
+		function ini(e:Event):void {
+			trace("Stage found");
+			removeEventListener(Event.ADDED_TO_STAGE, ini);
+			gStage = stage;
 			loadGameData();
 		}
 		

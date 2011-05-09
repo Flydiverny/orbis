@@ -2,10 +2,10 @@ package nadilus.orbis.screens.game
 {
 	import flash.display.Sprite;
 	
+	import nadilus.orbis.GameConstants;
 	import nadilus.orbis.data.GameData;
 	import nadilus.orbis.data.Level;
 	import nadilus.orbis.screens.OrbisGame;
-	import nadilus.orbis.GameConstants;
 	
 	public class GameScreen extends Sprite
 	{
@@ -16,6 +16,8 @@ package nadilus.orbis.screens.game
 		private var _currentLvlNum:uint;
 		private var _currentLevel:Level;
 		
+		private var _player:Player;
+		
 		public function GameScreen(game:OrbisGame, gameData:GameData)
 		{
 			trace("GameScreen: GameScreen(): Called");
@@ -24,6 +26,8 @@ package nadilus.orbis.screens.game
 			this._blockTypes	= gameData.blockTypes;
 			
 			this._currentLvlNum	= 0;
+			
+			this._player		= new Player();
 			
 			this.graphics.beginFill( 0x0FF000, 1.0 );
 			this.graphics.drawRect( 0, 0, GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT);
@@ -38,15 +42,20 @@ package nadilus.orbis.screens.game
 		private function startNextLevel():void {
 			trace("GameScreen: startNextLevel(): Called");
 			if(_currentLevel != null) {
+				_currentLevel.removeChild(_player.platform);
 				this.removeChild(_currentLevel);
 			}
 			
 			_currentLevel = _levels[_currentLvlNum];
 			_currentLevel.drawLevel(_blockTypes);
+			_currentLevel.x = GameConstants.GAMESCREEN_LEFT;
+			_currentLevel.y = GameConstants.ORBSHOOTER_HEIGHT;
 
-			this.addChild(_currentLevel);
+			_currentLevel.addChild(_player.platform);
+			_player.platform.x = _currentLevel.width/2-_player.platform.width/2;
+			_player.platform.y = _currentLevel.height-_player.platform.height*1.5;
 			
-			trace("GameScreen: this.x " + this.x + " this.y " + this.y + " this.height " + this.height + " this.width " + this.width);
+			this.addChild(_currentLevel);
 		}
 	}
 }

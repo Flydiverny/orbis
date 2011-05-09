@@ -54,7 +54,7 @@ package nadilus.orbis.data
 				var blockRow:uint = 0;
 				
 				var yincrement = this.height/2/2/blockSymbols.length;
-				var xincrement = GameConstants.BLOCK_WIDTH+yincrement-GameConstants.BLOCK_HEIGHT;
+				var xincrement = GameConstants.BLOCK_WIDTH; //+yincrement-GameConstants.BLOCK_HEIGHT;
 				var nexty:Number = yincrement;
 				
 				trace("Level: drawLevel(): Start looping thru BlockSymbols.");

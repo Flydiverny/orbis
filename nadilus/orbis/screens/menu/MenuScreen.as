@@ -31,6 +31,7 @@ package nadilus.orbis.screens.menu
 		
 		private function startGame(event:MouseEvent) {
 			trace("MenuScreen: startGame(): Called");
+			_startBtn.removeEventListener(MouseEvent.CLICK, startGame);
 			_game.runGameScreen();
 		}
 	}
