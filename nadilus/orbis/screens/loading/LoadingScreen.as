@@ -8,6 +8,7 @@ package nadilus.orbis.screens.loading
 	import flash.display.Sprite;
 	
 	import nadilus.orbis.screens.OrbisGame;
+	import nadilus.orbis.GameConstants;
 	
 	public class LoadingScreen extends Sprite
 	{
@@ -20,6 +21,9 @@ package nadilus.orbis.screens.loading
 			this._game = game;
 
 			_loadingBar = new LoadingBar();
+			
+			this.width			= GameConstants.SCREEN_WIDTH;
+			this.height			= GameConstants.SCREEN_HEIGHT;
 
 			this.addChild(_loadingBar);
 			

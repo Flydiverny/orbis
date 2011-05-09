@@ -2,13 +2,13 @@ package nadilus.orbis.screens
 {
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
-	import nadilus.orbis.Utilities;
 	
+	import nadilus.orbis.Utilities;
 	import nadilus.orbis.data.GameData;
+	import nadilus.orbis.screens.game.GameScreen;
+	import nadilus.orbis.screens.game.Platform;
 	import nadilus.orbis.screens.loading.LoadingScreen;
 	import nadilus.orbis.screens.menu.MenuScreen;
-	import nadilus.orbis.screens.game.Platform;
-	import nadilus.orbis.screens.game.GameScreen;
 	
 	public class OrbisGame extends Sprite
 	{

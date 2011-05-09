@@ -4,6 +4,7 @@ package nadilus.orbis.screens.game
 	
 	import nadilus.orbis.Utilities;
 	import nadilus.orbis.data.BlockType;
+	import nadilus.orbis.GameConstants;
 	
 	public class Block extends MovieClip
 	{
@@ -17,6 +18,10 @@ package nadilus.orbis.screens.game
 			this._blockType	= blockType;
 			this._blockNum	= blockNum;
 			this._blockRow	= blockRow;
+			
+			this.width = GameConstants.BLOCK_WIDTH;
+			
+			Utilities.setHue(this, _blockType.hueShiftAngle);
 		}
 	}
 }

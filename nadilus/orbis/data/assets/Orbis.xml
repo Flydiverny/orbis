@@ -7,9 +7,9 @@
 	<Levels>
 		<Level ScoreToWin="10000" InitialOrbCount="3" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
-				<BlockLine Blocks="_0__505_506"></BlockLine>
-				<BlockLine Blocks="4_4_5_____5"></BlockLine>
-				<BlockLine Blocks="3_3_515__65"></BlockLine>
-				<BlockLine Blocks="333___5___5"></BlockLine>
-				<BlockLine Blocks="3_3_535_636"></BlockLine></BlockLines>
+				<BlockLine Blocks="_0__101_101"></BlockLine>
+				<BlockLine Blocks="1_1_0_____0"></BlockLine>
+				<BlockLine Blocks="0_1_010__11"></BlockLine>
+				<BlockLine Blocks="111___0___0"></BlockLine>
+				<BlockLine Blocks="0_1_010_101"></BlockLine></BlockLines>
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool></Level></Levels></Orbis>

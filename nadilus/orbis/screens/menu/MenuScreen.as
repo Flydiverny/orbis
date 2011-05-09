@@ -6,6 +6,7 @@ package nadilus.orbis.screens.menu
 	import flash.events.MouseEvent;
 	
 	import nadilus.orbis.screens.OrbisGame;
+	import nadilus.orbis.GameConstants;
 	
 	public class MenuScreen extends Sprite
 	{
@@ -15,8 +16,11 @@ package nadilus.orbis.screens.menu
 		
 		public function MenuScreen(game:OrbisGame)
 		{
-			this._game = game;
-			this._startBtn = start_btn;
+			this._game			= game;
+			this._startBtn		= start_btn;
+			
+			//this.width			= GameConstants.SCREEN_WIDTH;
+			//this.height			= GameConstants.SCREEN_HEIGHT;
 			
 			_startBtn.addEventListener(MouseEvent.CLICK, startGame, false, 0, true);
 			

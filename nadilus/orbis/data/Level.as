@@ -4,6 +4,7 @@ package nadilus.orbis.data
 	import flash.xml.XMLNode;
 	
 	import nadilus.orbis.Utilities;
+	import nadilus.orbis.GameConstants;
 	import nadilus.orbis.screens.game.Block;
 
 	public class Level extends Sprite
@@ -22,8 +23,7 @@ package nadilus.orbis.data
 		
 		private var _levelDrawn:Boolean;
 		
-		public function Level()
-		{
+		public function Level() {
 			trace("Level: Level(): Called");
 			this.scoreToWin			= 1;
 			this.initialOrbCount	= 1;
@@ -36,27 +36,63 @@ package nadilus.orbis.data
 			this.special_SpeedUp	= true;
 			this.special_SpeedDown	= true;
 			this.special_OrbSplit	= true;
+			
+			
+			this.graphics.beginFill( 0x000000, 1.0 );
+			this.graphics.drawRect( 0, 0, GameConstants.LEVEL_WIDTH, GameConstants.LEVEL_HEIGHT);
+			this.graphics.endFill();
+			
+			this.width				= GameConstants.LEVEL_WIDTH;
+			this.height				= GameConstants.LEVEL_HEIGHT;
 		}
 		
 		public function drawLevel(blockTypes:Object):void {
+			trace("this.x " + this.x + " this.y " + this.y + " this.height " + this.height + " this.width " + this.width);
+			
 			trace("Level: drawLevel(): Called");
 			if(_levelDrawn == false) {
 				var blockRow:uint = 0;
+				
+				var yincrement = this.height/2/2/blockSymbols.length;
+				var xincrement = GameConstants.BLOCK_WIDTH+yincrement-GameConstants.BLOCK_HEIGHT;
+				var nexty:Number = yincrement;
+				
+				trace("Level: drawLevel(): Start looping thru BlockSymbols.");
 				for each(var line:Array in blockSymbols) {
+					trace("Level: drawLevel(): Looping thru line: " + line);
 					var blockNum:uint = 0;
 					var row:Array = new Array();
+					
+					var nextx:Number = this.width/2-line.length*xincrement/2;
+					
 					for each(var symbol:String in line) {
+						trace("Level: drawLevel(): Creating block for Symbol: " + symbol);
+						if(symbol == GameConstants.EMPTY_BLOCK) {
+							trace("Level: drawLevel(): Skipping, matches constant for Empty Block");
+							nextx += xincrement;
+							continue;
+						}
+						
 						var blockType:BlockType = blockTypes[symbol];
 						
-						if(blockType != null) {
-							var block:Block = new Block(blockType, blockRow, blockNum);
-
-							row.push(block);
-							blockNum++;
+						if(blockType == null) {
+							throw new Error("Level: drawLevel(): BlockType was null.");
 						}
+						
+						var block:Block = new Block(blockType, blockRow, blockNum);
+						
+						block.x = nextx;
+						block.y = nexty;
+						
+						this.addChild(block);
+						row.push(block);
+						blockNum++;
+						nextx += xincrement;
 					}
+					
 					blocks.push(row);
 					blockRow++;
+					nexty += yincrement;
 				}
 			}
 		}
