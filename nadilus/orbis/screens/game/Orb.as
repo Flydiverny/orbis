@@ -11,18 +11,15 @@ package nadilus.orbis.screens.game
 	
 	public class Orb extends MovieClip
 	{
-		private var _speed:Number = 1;
+		private var _speed:Number = 100;
 		private var damage:uint;
-		private var bounces:uint = 1;
+		private var bounces:uint;
 		private var life:uint;
 		
 		private var gravity:Number = 0.2;
 		private var radius:uint = 5;
 		private var precision:uint = 100;
 
-		
-		private var friction:Number = 0.90;
-		
 		private var _player:Player;
 		private var _blocks:Array;
 		
@@ -50,25 +47,6 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function enterFrame(event:Event):void {
-			/*if(this.x < 0) {
-				this.x = 0;
-				bounceBack();
-			}
-			
-			if(this.x > GameConstants.LEVEL_WIDTH) {
-				this.x = GameConstants.LEVEL_WIDTH;
-				bounceBack();
-			}
-			
-			if(this.y < 0) {
-				this.y = 0;
-				bounceBack();
-			}
-			
-			if(this.y > GameConstants.LEVEL_HEIGHT) {
-				//killball - score player etc.
-			}*/
-			
 			checkCollission();
 		}
 		
@@ -88,12 +66,15 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function checkCollission():void {
-			var p1:Point = new Point(_player.platform.x, _player.platform.y);
-			var p2:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y);
+			if(this.y > GameConstants.LEVEL_HEIGHT)
+				parent.removeChild(this);
+			
+			var p2:Point = new Point(_player.platform.x, _player.platform.y);
+			var p1:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y);
 
 			var platform:Vect = new Vect(p1,p2);
-			var leftWall:Vect = new Vect(new Point(0,0),new Point(0,GameConstants.LEVEL_HEIGHT));
-			var topWall:Vect = new Vect(new Point(0,0),new Point(GameConstants.LEVEL_WIDTH,GameConstants.LEVEL_HEIGHT));
+			var leftWall:Vect = new Vect(new Point(0,GameConstants.LEVEL_HEIGHT), new Point(0,0));
+			var topWall:Vect = new Vect(new Point(0,0),new Point(GameConstants.LEVEL_WIDTH,0));
 			var rightWall:Vect = new Vect(new Point(GameConstants.LEVEL_WIDTH,0),new Point(GameConstants.LEVEL_WIDTH,GameConstants.LEVEL_HEIGHT));
 			
 			var vectors:Array = new Array();
@@ -106,9 +87,18 @@ package nadilus.orbis.screens.game
 			//intersection with walls
 			var t:Number = 1000000;
 			var v:Vect = platform;
+			
+			var lvl:Level = Level ( this.parent );
+			for each (var line:Array in lvl.blocks) {
+				for each (var block:Block in line) {
+					for each (var blockVector:Vect in block.vectors) {
+						vectors.push(blockVector);
+					}
+				}
+			}
 
 			for each(var vect:Vect in vectors) {
-				trace("Checking vect: " + vect + " p0: " + vect.p0 + " p1: " + vect.p1);
+				//trace("Checking vect: " + vect + " p0: " + vect.p0 + " p1: " + vect.p1);
 				var v1:Vect = vect;
 				var p:Point = new Point(v1.p0.x + v1.rx / v1.len * (this.width/2), v1.p0.y + v1.ry / v1.len * (this.width/2));
 				var v2:Vect = Vect.vFrom1Point (p, v1.vx, v1.vy);
@@ -127,20 +117,12 @@ package nadilus.orbis.screens.game
 					v = vect;
 				}
 			}
-			
-			/*for each(var vect:Vect in vectors) {
-				var arr = Vect.findIntersection(this._vector, vect);
-				if(arr[1] < t){
-					ip = arr[0];
-					t = arr[1];
-					v = vect;
-				}
-			}*/
-			
+						
 			if(t != 1000000){
 				//draw bounce vector
 				this._vector = Vect.bounce(this._vector, v, ip);
 				this._vector.p1 = ip;
+				this.bounces++;
 			}
 			
 			this.moveMe();
@@ -163,7 +145,7 @@ package nadilus.orbis.screens.game
 		
 		public function moveMe() {
 			_vector.p0 = _vector.p1;
-			_vector = Vect.vFrom1Point (_vector.p0, _vector.vx, _vector.vy);
+			_vector = Vect.vFrom1Point(_vector.p0, _vector.dx*speed, _vector.dy*speed);
 			placeMe();
 		}
 		
@@ -177,7 +159,8 @@ package nadilus.orbis.screens.game
 		}
 		
 		public function get speed():Number {
-			return _speed * bounces;
+			trace("Orb: speed(): _speed: " + _speed + " bounces: " + bounces + " calc speed bonus: " + ((_speed/100+1) + (bounces/100)));
+			return (_speed/100+1) + (bounces/100);
 		}
 	}
 }
