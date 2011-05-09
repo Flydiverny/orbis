@@ -2,6 +2,7 @@ package nadilus.orbis
 {
 	import flash.geom.ColorTransform;
 	import flash.filters.ColorMatrixFilter;
+	import flash.geom.Point;
 
 	public class Utilities
 	{
@@ -57,5 +58,13 @@ package nadilus.orbis
 			filters.push(Utilities.createHueShiftColorMatrixFilter(angle));
 			e.filters = filters;
 		}
+		
+		public static function degreesToXY(radius:Number, degree:Number):Point {
+			var myPoint:Point = new Point();
+			var radians=Math.PI/180;
+			myPoint.x = radius * Math.cos(degree*(radians));
+			myPoint.y = radius * Math.sin(degree*(radians));
+			return myPoint;
+		} 
 	}
 }

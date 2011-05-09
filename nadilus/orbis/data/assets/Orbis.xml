@@ -1,7 +1,7 @@
 <Orbis>
 	<BlockTypes>
-		<BlockType Symbol="0" SpeedMultiplier="1.02" Score="100" Destroyable="true" HitsToBreak="1" SpecialChance="0" HueShiftAngle="200"></BlockType>
-		<BlockType Symbol="1" Score="200" SpeedMultiplier="1.02"
+		<BlockType Symbol="0" SpeedMultiplier="1.10" Score="100" Destroyable="true" HitsToBreak="1" SpecialChance="0" HueShiftAngle="200"></BlockType>
+		<BlockType Symbol="1" Score="200" SpeedMultiplier="1.05"
 			Destroyable="true" HitsToBreak="1" SpecialChance="75" HueShiftAngle="1">
 		</BlockType>
 	</BlockTypes>

@@ -9,13 +9,13 @@ package nadilus.orbis.data
 
 	public class Level extends Sprite
 	{
-		private var scoreToWin:uint;
-		private var initialOrbCount:uint;
-		private var maximumOrbsToLose:uint;
-		private var specialsCount:uint;
+		private var _scoreToWin:uint;
+		private var _initialOrbCount:uint;
+		private var _maximumOrbsToLose:uint;
+		private var _specialsCount:uint;
 
 		private var blockSymbols:Array;
-		private var blocks:Array;
+		private var _blocks:Array;
 		
 		private var special_SpeedUp:Boolean;
 		private var special_SpeedDown:Boolean;
@@ -25,13 +25,13 @@ package nadilus.orbis.data
 		
 		public function Level() {
 			trace("Level: Level(): Called");
-			this.scoreToWin			= 1;
-			this.initialOrbCount	= 1;
-			this.maximumOrbsToLose	= 1;
-			this.specialsCount		= 1;
+			this._scoreToWin		= 1;
+			this._initialOrbCount	= 1;
+			this._maximumOrbsToLose	= 1;
+			this._specialsCount		= 1;
 			
 			this.blockSymbols		= new Array();
-			this.blocks				= new Array();
+			this._blocks				= new Array();
 			
 			this.special_SpeedUp	= true;
 			this.special_SpeedDown	= true;
@@ -46,6 +46,16 @@ package nadilus.orbis.data
 			this.height				= GameConstants.LEVEL_HEIGHT;
 		}
 		
+		public function get blocks():Array
+		{
+			return _blocks;
+		}
+
+		public function get initialOrbCount():uint
+		{
+			return _initialOrbCount;
+		}
+
 		public function drawLevel(blockTypes:Object):void {
 			trace("this.x " + this.x + " this.y " + this.y + " this.height " + this.height + " this.width " + this.width);
 			
@@ -55,7 +65,7 @@ package nadilus.orbis.data
 				
 				var yincrement = this.height/2/2/blockSymbols.length;
 				var xincrement = GameConstants.BLOCK_WIDTH; //+yincrement-GameConstants.BLOCK_HEIGHT;
-				var nexty:Number = yincrement;
+				var nexty:Number = yincrement+50;
 				
 				trace("Level: drawLevel(): Start looping thru BlockSymbols.");
 				for each(var line:Array in blockSymbols) {
@@ -103,22 +113,22 @@ package nadilus.orbis.data
 			
 			if(node.attributes.ScoreToWin != null) {
 				trace("Level: constructFromXmlNode(): Attribute Found: ScoreToWin");
-				level.scoreToWin = node.attributes.ScoreToWin;
+				level._scoreToWin = node.attributes.ScoreToWin;
 			}
 			
 			if(node.attributes.InitialOrbCount != null) {
 				trace("Level: constructFromXmlNode(): Attribute Found: InitialOrbCount");
-				level.initialOrbCount = node.attributes.InitialOrbCount;
+				level._initialOrbCount = node.attributes.InitialOrbCount;
 			}
 			
 			if(node.attributes.MaximumOrbsToLose != null) {
 				trace("Level: constructFromXmlNode(): Attribute Found: MaximumOrbsToLose");
-				level.maximumOrbsToLose = node.attributes.MaximumOrbsToLose;
+				level._maximumOrbsToLose = node.attributes.MaximumOrbsToLose;
 			}
 			
 			if(node.attributes.SpecialsCount != null) {
 				trace("Level: constructFromXmlNode(): Attribute Found: SpecialsCount");
-				level.specialsCount = node.attributes.SpecialsCount;
+				level._specialsCount = node.attributes.SpecialsCount;
 			}
 			
 			// Loop thru all ChildNodes and look for BlockLines and/or SpecialsPool

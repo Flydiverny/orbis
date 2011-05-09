@@ -4,14 +4,20 @@ package nadilus.orbis.screens.game
 	{
 		private var _platform:Platform;
 		
-		public function Player()
-		{
+		private var _orbShooter:OrbShooter;
+		
+		public function Player() {
+			trace("Player: Player(): Called");
 			this._platform = new Platform();
+			this._orbShooter = new OrbShooter(this);
 		}
 
-		public function get platform():Platform
-		{
+		public function get platform():Platform {
 			return _platform;
+		}
+		
+		public function get orbShooter():OrbShooter {
+			return _orbShooter;
 		}
 	}
 }
