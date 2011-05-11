@@ -181,22 +181,22 @@ package nadilus.orbis.screens.game
 					if(ob.y <= _currentLevel.centerPoint.y) {
 						if(ob.x <= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.topLeftBlocks;
-							Utilities.setHue(ob, 55);
+							//Utilities.setHue(ob, 55);
 						}
 						if(ob.x >= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.topRightBlocks;
-							Utilities.setHue(ob, 105);
+							//Utilities.setHue(ob, 105);
 						}
 					}
 					
 					else if(ob.y >= _currentLevel.centerPoint.y) {
 						if(ob.x <= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.bottomLeftBlocks;
-							Utilities.setHue(ob, 155);
+							//Utilities.setHue(ob, 155);
 						}
 						if(ob.x >= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.bottomRightBlocks;
-							Utilities.setHue(ob, 205);
+							//Utilities.setHue(ob, 205);
 						}
 					}
 					

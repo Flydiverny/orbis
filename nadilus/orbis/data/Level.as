@@ -125,22 +125,22 @@ package nadilus.orbis.data
 						if(blocks[i][x].y <= centerPoint.y) {
 							if(blocks[i][x].x <= centerPoint.x) {
 								topLeftBlocks.push(blocks[i][x]);
-								Utilities.setHue(blocks[i][x], 50);
+								//Utilities.setHue(blocks[i][x], 50);
 							}
 							if(blocks[i][x].x + blocks[i][x].width >= centerPoint.x) {
 								topRightBlocks.push(blocks[i][x]);
-								Utilities.setHue(blocks[i][x], 100);
+								//Utilities.setHue(blocks[i][x], 100);
 							}
 						}
 						
 						if(blocks[i][x].y+blocks[i][x].height >= centerPoint.y) {
 							if(blocks[i][x].x <= centerPoint.x) {
 								bottomLeftBlocks.push(blocks[i][x]);
-								Utilities.setHue(blocks[i][x], 150);
+								//Utilities.setHue(blocks[i][x], 150);
 							}
 							if(blocks[i][x].x + blocks[i][x].width >= centerPoint.x) {
 								bottomRightBlocks.push(blocks[i][x]);
-								Utilities.setHue(blocks[i][x], 200);
+								//Utilities.setHue(blocks[i][x], 200);
 							}
 						}
 					}
