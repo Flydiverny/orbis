@@ -9,7 +9,7 @@ package nadilus.orbis.screens.game
 		public function Player() {
 			trace("Player: Player(): Called");
 			this._platform = new Platform();
-			this._orbShooter = new OrbShooter(this);
+			this._orbShooter = new OrbShooter();
 		}
 
 		public function get platform():Platform {

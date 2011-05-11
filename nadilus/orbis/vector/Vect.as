@@ -1,5 +1,6 @@
 ﻿package nadilus.orbis.vector {
 	import flash.geom.Point;
+	import nadilus.orbis.screens.game.Orb;
 
 	public class Vect {
 		//static functions belonging to Vector class
@@ -77,7 +78,7 @@
 		}
 		//find collision of ball with line
 		//return array [0]=point [1]=bounce vector
-		public static function b2Line (ob:Circle, v:Vect):Array {
+		public static function b2Line (ob:Orb, v:Vect):Array {
 			var returnArray:Array = new Array();
 			returnArray[0] = ob.v.p1;
 			//vector from ball center to start of line
@@ -108,8 +109,8 @@
 				returnArray[1] = arr[1];
 			}else{
 				//find collision with endpoints of the line
-				var a1:Array = Vect.b2Ball (ob, new Circle(v.p0, 0, 0, 0));
-				var a2:Array = Vect.b2Ball (ob, new Circle(v.p1, 0, 0, 0));
+				var a1:Array = Vect.b2Ball2(ob, new Circle(v.p0, 0, 0, 0));
+				var a2:Array = Vect.b2Ball2(ob, new Circle(v.p1, 0, 0, 0));
 				if(a1[1] < a2[1]){
 					arr = a1;
 				}else{
@@ -129,7 +130,48 @@
 			return returnArray;
 		}
 		//find collision of ball with point
-		public static function b2Ball (ob1:Circle, ob2:Circle):Array {
+		public static function b2Ball (ob1:Orb, ob2:Orb):Array {
+			var totalR:Number = ob1.r + ob2.r;
+			var arr:Array =  new Array();
+			var v = Vect.vFrom1Point (ob1.v.p0, ob1.v.vx - ob2.v.vx, ob1.v.vy - ob2.v.vy);
+			//vector between centers of balls
+			var v1:Vect = new Vect(v.p0, ob2.v.p0);
+			//if they start too close
+			if(v1.len < totalR){
+				var fixPos:Number = totalR - v1.len;
+				arr[0] = new Point(ob1.v.p0.x - v1.dx * fixPos, ob1.v.p0.y - v1.dy * fixPos);
+				arr[2] = ob2.v.p0;
+				arr[1] = 0;
+				return arr;
+			}
+			//project on v
+			v1 = Vect.projectVector (v1, v);
+			//must be same direction with v
+			if(dotProduct(v1, v) < 0){
+				arr[1] = 1000000;
+				return arr;
+			}
+			//vector in direction of v normal to point
+			v1 = new Vect(v1.p1, ob2.v.p0);
+			if(v1.len / totalR < 1){
+				var len:Number = Math.sqrt(totalR * totalR - v1.len * v1.len);
+				//vector to move ball back until it exactly hits the point
+				v1 = Vect.vFrom1Point (v1.p0, -v.dx * len, -v.dy * len);
+				arr[0] = v1.p1;
+				arr[2] = ob2.v.p0;
+				//time to move the ball
+				v1 = new Vect(v.p0, v1.p1);
+				arr[1] = v1.len / v.len;
+				if(dotProduct(v1, v) < 0){
+					arr[1] = 1000000;
+				}
+			}else{
+				arr[1] = 1000000;
+			}
+			return arr;
+		}
+		
+		public static function b2Ball2(ob1:Orb, ob2:Circle):Array {
 			var totalR:Number = ob1.r + ob2.r;
 			var arr:Array =  new Array();
 			var v = Vect.vFrom1Point (ob1.v.p0, ob1.v.vx - ob2.v.vx, ob1.v.vy - ob2.v.vy);

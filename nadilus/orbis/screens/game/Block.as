@@ -58,7 +58,7 @@ package nadilus.orbis.screens.game
 			vectors.push(botWall);
 		}
 		
-		public function orbHit(orb:Orb):void {
+		/*public function orbHit(orb:Orb):void {
 			if(_blockType.destroyable) {
 				if(hitsTaken < _blockType.hitsToBreak) {
 					hitsTaken++;
@@ -71,6 +71,6 @@ package nadilus.orbis.screens.game
 				orb.bounceBack();
 			}
 			orb.speedMultiply(_blockType.speedMultiplier);
-		}
+		}*/
 	}
 }

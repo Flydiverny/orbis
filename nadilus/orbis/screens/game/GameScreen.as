@@ -3,12 +3,14 @@ package nadilus.orbis.screens.game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.ui.*;
 	
 	import nadilus.orbis.GameConstants;
 	import nadilus.orbis.data.GameData;
 	import nadilus.orbis.data.Level;
 	import nadilus.orbis.screens.OrbisGame;
+	import nadilus.orbis.vector.Vect;
 	
 	public class GameScreen extends Sprite
 	{
@@ -28,6 +30,10 @@ package nadilus.orbis.screens.game
 		private var up:Boolean = false;
 		private var down:Boolean = false;
 		private var space:Boolean = false;
+		
+		private var orbsMag:Array;
+		
+		private var orbsActive:Array;
 		
 		public function GameScreen(game:OrbisGame, gameData:GameData) {
 			trace("GameScreen: GameScreen(): Called");
@@ -59,6 +65,14 @@ package nadilus.orbis.screens.game
 			this.addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
+		private function spawnOrb():void {
+			var orb:Orb =  new Orb(this._orbShooter.fireOrb());
+
+			_currentLevel.addChild(orb);
+			
+			this.orbsActive.push(orb);
+		}
+		
 		private function startNextLevel():void {
 			trace("GameScreen: startNextLevel(): Called");
 			if(_currentLevel != null) {
@@ -78,7 +92,12 @@ package nadilus.orbis.screens.game
 			_player.platform.x = _currentLevel.width/2-_player.platform.width/2;
 			_player.platform.y = _currentLevel.height-_player.platform.height*1.5;
 			
-			_orbShooter.orbMagazine = _currentLevel.initialOrbCount;
+			this.orbsMag = new Array();
+			this.orbsActive = new Array();
+			
+			for(var i:uint = 0; i < _currentLevel.initialOrbCount; i++) {
+				this.orbsMag.push(new Orb(new Vect(new Point(0,0), new Point(0,0))));
+			}
 			
 			this.addChild(_currentLevel);
 			this.addChild(_orbShooter);
@@ -96,8 +115,129 @@ package nadilus.orbis.screens.game
 					_player.orbShooter.rotation -= 2;
 			}
 				
-			if(space)
-				_player.orbShooter.fireOrb(_currentLevel);
+			if(space) {
+				spawnOrb();
+			}
+			
+			
+			handleOrbs();
+		}
+		
+		private function handleOrbs():void {
+			checkCollission();
+		}
+		
+		private function checkCollission():void {
+			var pp2:Point = new Point(_player.platform.x, _player.platform.y);
+			var pp1:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y);
+			
+			var platform:Vect = new Vect(pp1,pp2);
+
+			for(var n:int = 0; n < orbsActive.length; n++){
+				var ob = orbsActive[n];
+				var oc = ob;
+				//intersection with walls
+				var arr1 = new Array(0, 1000000, 0);
+				for(var m:int = n + 1; m < orbsActive.length; m++){
+					var arr2 = Vect.b2Ball(ob, orbsActive[m]);
+					//0 point, 1 time, 2 vector to bounce from
+					if(arr2[1] < arr1[1]){
+						arr1 = arr2;
+						oc = orbsActive[m];
+					}
+				}
+				var t = arr1[1];
+				if(t <= 1){
+					if(t == 0){
+						var p1:Point = arr1[0];
+						var p2:Point = arr1[2];
+					}else{
+						p1 = new Point(ob.v.p0.x + ob.v.vx * t, ob.v.p0.y + ob.v.vy * t);
+						p2 = new Point(oc.v.p0.x + oc.v.vx * t, oc.v.p0.y + oc.v.vy * t);
+					}
+					
+					var v:Vect = new Vect(p2, p1);
+					var vn:Vect = Vect.vFrom1Point(v.p0, v.lx, v.ly);
+					var proj1a:Vect = Vect.projectVector(ob.v, v);
+					var proj1b:Vect = Vect.projectVector(ob.v, vn);
+					var proj2a:Vect = Vect.projectVector(oc.v, v);
+					var proj2b:Vect = Vect.projectVector(oc.v, vn);
+					ob.v.p1 = p1;
+					oc.v.p1 = p2;
+					ob.v = Vect.vFrom1Point(p1, proj2a.vx + proj1b.vx, proj2a.vy + proj1b.vy);
+					oc.v = Vect.vFrom1Point(p2, proj1a.vx + proj2b.vx, proj1a.vy + proj2b.vy);
+					//n = 0;
+				}
+				else {
+					// Check Blocks
+					var vectors:Array;
+					
+					if(ob.y <= _currentLevel.centerPoint.y) {
+						if(ob.x <= _currentLevel.centerPoint.x) {
+							vectors = _currentLevel.topLeftBlocks;
+						}
+						else if(ob.x >= _currentLevel.centerPoint.x) {
+							vectors = _currentLevel.topRightBlocks;
+						}
+					}
+					
+					else if(ob.y >= _currentLevel.centerPoint.y) {
+						if(ob.x <= _currentLevel.centerPoint.x) {
+							vectors = _currentLevel.bottomLeftBlocks;
+						}
+						else if(ob.x >= _currentLevel.centerPoint.x) {
+							vectors = _currentLevel.bottomRightBlocks;
+						}
+					}
+					
+					for each(var block:Block in vectors){
+						for each(var vect:Vect in block.vectors) {
+							var v1:Vect = vect;
+							var arr2 = Vect.b2Line (ob, v1);
+							//0 point, 1 time, 2 vector to bounce from
+							if(arr2[1] < arr1[1]){
+								arr1 = arr2;
+							}
+						}
+					}
+					if(arr1[1] <= 1){
+						//draw bounce vector
+						ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
+						ob.v.p1 = arr1[0];
+					}
+					else {
+						// Check Platform
+						var v1:Vect = platform;
+						var arr2 = Vect.b2Line(ob, v1);
+						//0 point, 1 time, 2 vector to bounce from
+						if(arr2[1] < arr1[1]){
+							arr1 = arr2;
+						}
+						if(arr1[1] <= 1){
+							//draw bounce vector
+							ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
+							ob.v.p1 = arr1[0];
+						}
+					}
+				}
+				
+				//edges
+				if(ob.v.p1.x < ob.r){
+					ob.v.dx = Math.abs(ob.v.vx);
+				}else if(ob.v.p1.x > GameConstants.LEVEL_WIDTH - ob.r){
+					ob.v.dx = -Math.abs(ob.v.vx);
+				}
+				
+				if(ob.v.p1.y < ob.r){
+					ob.v.dy = Math.abs(ob.v.vy);
+				}else if(ob.v.p1.y > GameConstants.LEVEL_HEIGHT - ob.r){
+					ob.v.dy = -Math.abs(ob.v.vy);
+				}
+			}
+			
+			for each(var orb:Orb in orbsActive) {
+				orb.moveMe();
+			}
 		}
 		
 		private function keyPressed(event:KeyboardEvent):void {

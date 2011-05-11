@@ -3,9 +3,10 @@ package nadilus.orbis.data
 	import flash.display.Sprite;
 	import flash.xml.XMLNode;
 	
-	import nadilus.orbis.Utilities;
 	import nadilus.orbis.GameConstants;
+	import nadilus.orbis.Utilities;
 	import nadilus.orbis.screens.game.Block;
+	import flash.geom.Point;
 
 	public class Level extends Sprite
 	{
@@ -22,6 +23,13 @@ package nadilus.orbis.data
 		private var special_OrbSplit:Boolean;
 		
 		private var _levelDrawn:Boolean;
+		
+		public var topLeftBlocks:Array;
+		public var bottomLeftBlocks:Array;
+		public var topRightBlocks:Array;
+		public var bottomRightBlocks:Array;
+		
+		public var centerPoint:Point;
 		
 		public function Level() {
 			trace("Level: Level(): Called");
@@ -103,6 +111,35 @@ package nadilus.orbis.data
 					blocks.push(row);
 					blockRow++;
 					nexty += yincrement;
+				}
+				
+				centerPoint = new Point(this.width/2+line.length*xincrement/2,yincrement*blockSymbols.length/2);
+				
+				topLeftBlocks = new Array();
+				topRightBlocks = new Array();
+				bottomLeftBlocks = new Array();
+				bottomRightBlocks = new Array();
+				
+				for(var i:uint = 0; i < blocks.length; i++) {
+					for(var x:uint = 0; x < blocks[i].length; x++) {
+						if(blocks[i][x].y <= centerPoint.y) {
+							if(blocks[i][x].x <= centerPoint.x) {
+								topLeftBlocks.push(blocks[i][x]);
+							}
+							else if(blocks[i][x].x >= centerPoint.x) {
+								topRightBlocks.push(blocks[i][x]);
+							}
+						}
+						
+						else if(blocks[i][x].y >= centerPoint.y) {
+							if(blocks[i][x].x <= centerPoint.x) {
+								bottomLeftBlocks.push(blocks[i][x]);
+							}
+							else if(blocks[i][x].x >= centerPoint.x) {
+								bottomRightBlocks.push(blocks[i][x]);
+							}
+						}
+					}
 				}
 			}
 		}
