@@ -11,6 +11,7 @@ package nadilus.orbis.screens.game
 	import nadilus.orbis.data.Level;
 	import nadilus.orbis.screens.OrbisGame;
 	import nadilus.orbis.vector.Vect;
+	import nadilus.orbis.Utilities;
 	
 	public class GameScreen extends Sprite
 	{
@@ -66,11 +67,16 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function spawnOrb():void {
-			var orb:Orb =  new Orb(this._orbShooter.fireOrb());
-
-			_currentLevel.addChild(orb);
 			
-			this.orbsActive.push(orb);
+			if(orbsMag.length > 0) {
+				orbsMag.pop();
+				
+				var orb:Orb =  new Orb(this._orbShooter.fireOrb());
+	
+				_currentLevel.addChild(orb);
+				
+				this.orbsActive.push(orb);
+			}
 		}
 		
 		private function startNextLevel():void {
@@ -175,25 +181,29 @@ package nadilus.orbis.screens.game
 					if(ob.y <= _currentLevel.centerPoint.y) {
 						if(ob.x <= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.topLeftBlocks;
+							Utilities.setHue(ob, 55);
 						}
-						else if(ob.x >= _currentLevel.centerPoint.x) {
+						if(ob.x >= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.topRightBlocks;
+							Utilities.setHue(ob, 105);
 						}
 					}
 					
 					else if(ob.y >= _currentLevel.centerPoint.y) {
 						if(ob.x <= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.bottomLeftBlocks;
+							Utilities.setHue(ob, 155);
 						}
-						else if(ob.x >= _currentLevel.centerPoint.x) {
+						if(ob.x >= _currentLevel.centerPoint.x) {
 							vectors = _currentLevel.bottomRightBlocks;
+							Utilities.setHue(ob, 205);
 						}
 					}
 					
 					for each(var block:Block in vectors){
 						for each(var vect:Vect in block.vectors) {
 							var v1:Vect = vect;
-							var arr2 = Vect.b2Line (ob, v1);
+							var arr2 = Vect.b2Line(ob, v1);
 							//0 point, 1 time, 2 vector to bounce from
 							if(arr2[1] < arr1[1]){
 								arr1 = arr2;
@@ -223,15 +233,15 @@ package nadilus.orbis.screens.game
 				
 				//edges
 				if(ob.v.p1.x < ob.r){
-					ob.v.dx = Math.abs(ob.v.vx);
+					ob.v.dx = Math.abs(ob.v.dx);
 				}else if(ob.v.p1.x > GameConstants.LEVEL_WIDTH - ob.r){
-					ob.v.dx = -Math.abs(ob.v.vx);
+					ob.v.dx = -Math.abs(ob.v.dx);
 				}
 				
 				if(ob.v.p1.y < ob.r){
-					ob.v.dy = Math.abs(ob.v.vy);
+					ob.v.dy = Math.abs(ob.v.dy);
 				}else if(ob.v.p1.y > GameConstants.LEVEL_HEIGHT - ob.r){
-					ob.v.dy = -Math.abs(ob.v.vy);
+					ob.v.dy = -Math.abs(ob.v.dy);
 				}
 			}
 			
@@ -257,24 +267,6 @@ package nadilus.orbis.screens.game
 				case Keyboard.SPACE:
 					space = true;
 					break;
-				/*case Keyboard.SHIFT:
-				changeWeapon(1);
-				break;
-				case Keyboard.CONTROL:
-				changeWeapon(2);
-				break;
-				case 49:
-				setWeapon(1);
-				break;
-				case 50:
-				setWeapon(2);
-				break;
-				case 51:
-				setWeapon(3);
-				break;
-				case 52:
-				setWeapon(4);
-				break;*/
 			}
 		}
 		

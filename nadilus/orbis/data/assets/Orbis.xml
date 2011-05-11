@@ -13,11 +13,6 @@
 				<BlockLine Blocks="0_1_010__11"></BlockLine>
 				<BlockLine Blocks="111___0___0"></BlockLine>
 				<BlockLine Blocks="0_1_010_101"></BlockLine>
-				<BlockLine Blocks="_0__101_101"></BlockLine>
-				<BlockLine Blocks="1_1_0_____0"></BlockLine>
-				<BlockLine Blocks="0_1_010__11"></BlockLine>
-				<BlockLine Blocks="111___0___0"></BlockLine>
-				<BlockLine Blocks="0_1_010_101"></BlockLine>
 			</BlockLines>
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>

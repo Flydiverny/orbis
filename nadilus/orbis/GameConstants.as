@@ -16,8 +16,8 @@ package nadilus.orbis
 		public static const LEVEL_WIDTH:uint	= SCREEN_WIDTH-GAMESCREEN_LEFT-GAMESCREEN_RIGHT;
 		public static const LEVEL_HEIGHT:uint	= SCREEN_HEIGHT-ORBSHOOTER_HEIGHT;
 		
-		public static const BLOCK_WIDTH:uint	= 40;
-		public static const BLOCK_HEIGHT:uint	= 15;
+		public static const BLOCK_WIDTH:uint	= 60;
+		public static const BLOCK_HEIGHT:uint	= 20;
 		public static const BLOCK_SPACING:uint	= 3;
 	}
 }

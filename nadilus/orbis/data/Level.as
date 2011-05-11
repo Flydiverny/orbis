@@ -113,7 +113,7 @@ package nadilus.orbis.data
 					nexty += yincrement;
 				}
 				
-				centerPoint = new Point(this.width/2+line.length*xincrement/2,yincrement*blockSymbols.length/2);
+				centerPoint = new Point(this.width/2,this.height/2/2);
 				
 				topLeftBlocks = new Array();
 				topRightBlocks = new Array();
@@ -125,18 +125,22 @@ package nadilus.orbis.data
 						if(blocks[i][x].y <= centerPoint.y) {
 							if(blocks[i][x].x <= centerPoint.x) {
 								topLeftBlocks.push(blocks[i][x]);
+								Utilities.setHue(blocks[i][x], 50);
 							}
-							else if(blocks[i][x].x >= centerPoint.x) {
+							if(blocks[i][x].x + blocks[i][x].width >= centerPoint.x) {
 								topRightBlocks.push(blocks[i][x]);
+								Utilities.setHue(blocks[i][x], 100);
 							}
 						}
 						
-						else if(blocks[i][x].y >= centerPoint.y) {
+						if(blocks[i][x].y+blocks[i][x].height >= centerPoint.y) {
 							if(blocks[i][x].x <= centerPoint.x) {
 								bottomLeftBlocks.push(blocks[i][x]);
+								Utilities.setHue(blocks[i][x], 150);
 							}
-							else if(blocks[i][x].x >= centerPoint.x) {
+							if(blocks[i][x].x + blocks[i][x].width >= centerPoint.x) {
 								bottomRightBlocks.push(blocks[i][x]);
+								Utilities.setHue(blocks[i][x], 200);
 							}
 						}
 					}
