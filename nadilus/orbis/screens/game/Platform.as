@@ -17,8 +17,8 @@ package nadilus.orbis.screens.game
 		private var xSpeed:Number = 0;
 		private var xFriction:Number = 0.09;
 		private var yFriction:Number = 0.09;
-		private var xPower:Number = 1.5;
-		private var yPower:Number = 1.5;
+		private var xPower:Number = 6;
+		private var yPower:Number = 6;
 		
 		public function Platform() {
 			trace("Platform: Platform(): Called");

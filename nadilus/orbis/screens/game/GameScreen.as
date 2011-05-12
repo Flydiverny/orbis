@@ -7,11 +7,11 @@ package nadilus.orbis.screens.game
 	import flash.ui.*;
 	
 	import nadilus.orbis.GameConstants;
+	import nadilus.orbis.Utilities;
 	import nadilus.orbis.data.GameData;
 	import nadilus.orbis.data.Level;
 	import nadilus.orbis.screens.OrbisGame;
 	import nadilus.orbis.vector.Vect;
-	import nadilus.orbis.Utilities;
 	
 	public class GameScreen extends Sprite
 	{
@@ -200,13 +200,18 @@ package nadilus.orbis.screens.game
 						}
 					}
 					
+					var hitBlock:Block = null;
+					
 					for each(var block:Block in vectors){
-						for each(var vect:Vect in block.vectors) {
-							var v1:Vect = vect;
-							var arr2 = Vect.b2Line(ob, v1);
-							//0 point, 1 time, 2 vector to bounce from
-							if(arr2[1] < arr1[1]){
-								arr1 = arr2;
+						if(block.vectors != null) {
+							for each(var vect:Vect in block.vectors) {
+								var v1:Vect = vect;
+								var arr2 = Vect.b2Line(ob, v1);
+								//0 point, 1 time, 2 vector to bounce from
+								if(arr2[1] < arr1[1]){
+									arr1 = arr2;
+									hitBlock = block;
+								}
 							}
 						}
 					}
@@ -214,6 +219,14 @@ package nadilus.orbis.screens.game
 						//draw bounce vector
 						ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
 						ob.v.p1 = arr1[0];
+						if(hitBlock != null) {
+							if(hitBlock.hitBlock()) {
+								if(hitBlock.parent == this)
+									this._currentLevel.removeChild(block);
+								//vectors.splice(hitBlock);
+								//hitBlock = null;
+							}
+						}
 					}
 					else {
 						// Check Platform

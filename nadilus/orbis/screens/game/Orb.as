@@ -12,7 +12,7 @@ package nadilus.orbis.screens.game
 	
 	public class Orb extends MovieClip
 	{
-		private var _speed:Number = 200;
+		private var _speed:Number = 800;
 		private var damage:uint;
 		private var bounces:uint;
 		private var life:uint;
@@ -49,8 +49,6 @@ package nadilus.orbis.screens.game
 			
 			this.x = v.p1.x;
 			this.y = v.p1.y;
-			
-			
 		}
 		
 		public function moveMe() {
@@ -58,12 +56,13 @@ package nadilus.orbis.screens.game
 			v.p0 = v.p1;
 			v = Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed);
 			
-			if(vectors.length >= 8) {
+			if(vectors.length >= 5) {
 				if(v.p0.x == vectors[vectors.length-2].p0.x && vectors[vectors.length-2].p0.x == vectors[vectors.length-3].p0.x && vectors[vectors.length-2].p0.y == vectors[vectors.length-3].p0.y && v.p0.y == vectors[vectors.length-2].p0.y) {
 					Utilities.setHue(this,-200);
 					v = vectors[0];
 					v.dx *= -1;
 					v.dy *= -1;
+					v = Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed);
 					trace("MAGICSMAGICSMAGICSMAGICSMAGICSMAGICSMAGICSMAGICSMAGICSMAGICSMAGICSMAGICS");
 				}
 				

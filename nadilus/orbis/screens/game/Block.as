@@ -46,16 +46,28 @@ package nadilus.orbis.screens.game
 		private function remakeVectors():void {
 			var leftWall:Vect = new Vect(new Point(this.x,this.y), new Point(this.x,this.y+this.height));
 			var topWall:Vect = new Vect(new Point(this.x+this.width,this.y), new Point(this.x,this.y));
-			var topWall2:Vect = new Vect(new Point(this.x,this.y), new Point(this.x+this.width,this.y));
+			
 			var rightWall:Vect = new Vect(new Point(this.x+this.width,this.y+this.height), new Point(this.x+this.width,this.y));
 			var botWall:Vect = new Vect(new Point(this.x,this.y+this.height), new Point(this.x+this.width,this.y+this.height));
 			
 			vectors = new Array();
 			vectors.push(leftWall);
 			vectors.push(topWall);
-			vectors.push(topWall2);
+			
 			vectors.push(rightWall);
 			vectors.push(botWall);
+		}
+		
+		public function hitBlock():Boolean {
+			this.hitsTaken++;
+			
+			if(this.hitsTaken  >= _blockType.hitsToBreak) {
+				Utilities.setRGB(this, 0x000000);
+				this.vectors = null;
+				return true;
+			}
+
+			return false;
 		}
 		
 		/*public function orbHit(orb:Orb):void {

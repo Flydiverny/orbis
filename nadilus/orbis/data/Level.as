@@ -71,7 +71,7 @@ package nadilus.orbis.data
 			if(_levelDrawn == false) {
 				var blockRow:uint = 0;
 				
-				var yincrement = this.height/2/2/blockSymbols.length;
+				var yincrement = this.height/2/blockSymbols.length;
 				var xincrement = GameConstants.BLOCK_WIDTH; //+yincrement-GameConstants.BLOCK_HEIGHT;
 				var nexty:Number = yincrement+50;
 				
@@ -113,7 +113,7 @@ package nadilus.orbis.data
 					nexty += yincrement;
 				}
 				
-				centerPoint = new Point(this.width/2,this.height/2/2);
+				centerPoint = new Point(this.width/2,this.height/2);
 				
 				topLeftBlocks = new Array();
 				topRightBlocks = new Array();

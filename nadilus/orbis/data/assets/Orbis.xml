@@ -1,18 +1,23 @@
 <Orbis>
 	<BlockTypes>
-		<BlockType Symbol="0" SpeedMultiplier="1.10" Score="100" Destroyable="true" HitsToBreak="1" SpecialChance="0" HueShiftAngle="200"></BlockType>
+		<BlockType Symbol="0" SpeedMultiplier="1.10" Score="100" Destroyable="true" HitsToBreak="2" SpecialChance="0" HueShiftAngle="200"></BlockType>
 		<BlockType Symbol="1" Score="200" SpeedMultiplier="1.05"
 			Destroyable="true" HitsToBreak="1" SpecialChance="75" HueShiftAngle="1">
 		</BlockType>
 	</BlockTypes>
 	<Levels>
-		<Level ScoreToWin="10000" InitialOrbCount="1000" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScoreToWin="10000" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
-				<BlockLine Blocks="_0__101_101"></BlockLine>
-				<BlockLine Blocks="1_1_0_____0"></BlockLine>
-				<BlockLine Blocks="0_1_010__11"></BlockLine>
-				<BlockLine Blocks="111___0___0"></BlockLine>
-				<BlockLine Blocks="0_1_010_101"></BlockLine>
+				<BlockLine Blocks="__10____01__"></BlockLine>
+				<BlockLine Blocks="__01____10__"></BlockLine>
+				<BlockLine Blocks="__10____01__"></BlockLine>
+				<BlockLine Blocks="__01____10__"></BlockLine>
+				<BlockLine Blocks="_"></BlockLine>
+				<BlockLine Blocks="_"></BlockLine>
+				<BlockLine Blocks="11________11"></BlockLine>
+				<BlockLine Blocks="11________11"></BlockLine>
+				<BlockLine Blocks="_111____111_"></BlockLine>
+				<BlockLine Blocks="__00000000__"></BlockLine>
 			</BlockLines>
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
