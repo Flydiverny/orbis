@@ -6,6 +6,8 @@ package nadilus.orbis.screens.game
 		
 		private var _orbShooter:OrbShooter;
 		
+		private var _currentScore:uint;
+		
 		public function Player() {
 			trace("Player: Player(): Called");
 			this._platform = new Platform();
@@ -18,6 +20,14 @@ package nadilus.orbis.screens.game
 		
 		public function get orbShooter():OrbShooter {
 			return _orbShooter;
+		}
+		
+		public function get currentScore():uint {
+			return this._currentScore;
+		}
+		
+		public function set currentScore(value:uint):void {
+			this._currentScore = value;	
 		}
 	}
 }

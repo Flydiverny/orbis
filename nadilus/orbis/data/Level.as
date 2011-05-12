@@ -7,8 +7,10 @@ package nadilus.orbis.data
 	import nadilus.orbis.Utilities;
 	import nadilus.orbis.screens.game.Block;
 	import flash.geom.Point;
+	import flash.display.MovieClip;
+	import nadilus.orbis.screens.game.Orb;
 
-	public class Level extends Sprite
+	public class Level extends MovieClip
 	{
 		private var _scoreToWin:uint;
 		private var _initialOrbCount:uint;
@@ -213,6 +215,10 @@ package nadilus.orbis.data
 			}
 	
 			return level;
+		}
+		
+		public function removeOrb(ob:Orb) {
+			//this.removeChild(ob);
 		}
 	}
 }

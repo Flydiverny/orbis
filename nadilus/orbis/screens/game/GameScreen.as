@@ -103,6 +103,9 @@ package nadilus.orbis.screens.game
 			
 			for(var i:uint = 0; i < _currentLevel.initialOrbCount; i++) {
 				this.orbsMag.push(new Orb(new Vect(new Point(0,0), new Point(0,0))));
+				orbsMag[i].x = GameConstants.GAMESCREEN_LEFT/2;
+				orbsMag[i].y = GameConstants.SCREEN_HEIGHT-orbsMag[i].height*(i+1)+10;
+				this.addChild(orbsMag[i]);
 			}
 			
 			this.addChild(_currentLevel);
@@ -134,14 +137,11 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function checkCollission():void {
-			var pp2:Point = new Point(_player.platform.x, _player.platform.y);
-			var pp1:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y);
-			
-			var platform:Vect = new Vect(pp1,pp2);
+			var platform:Array = getPlatformVectors();
 
 			for(var n:int = 0; n < orbsActive.length; n++){
-				var ob = orbsActive[n];
-				var oc = ob;
+				var ob:Orb = orbsActive[n];
+				var oc:Orb = ob;
 				//intersection with walls
 				var arr1 = new Array(0, 1000000, 0);
 				for(var m:int = n + 1; m < orbsActive.length; m++){
@@ -216,26 +216,29 @@ package nadilus.orbis.screens.game
 						}
 					}
 					if(arr1[1] <= 1){
-						//draw bounce vector
+				        //draw bounce vector
 						ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
 						ob.v.p1 = arr1[0];
 						if(hitBlock != null) {
 							if(hitBlock.hitBlock()) {
-								if(hitBlock.parent == this)
-									this._currentLevel.removeChild(block);
-								//vectors.splice(hitBlock);
-								//hitBlock = null;
+								//this._currentLevel.removeChild(block);
+								
+								vectors.indexOf(hitBlock);
+								vectors.splice(vectors.indexOf(hitBlock),1);
 							}
 						}
 					}
 					else {
 						// Check Platform
-						var v1:Vect = platform;
-						var arr2 = Vect.b2Line(ob, v1);
-						//0 point, 1 time, 2 vector to bounce from
-						if(arr2[1] < arr1[1]){
-							arr1 = arr2;
+						for each(var platVect in platform) {
+							var v1:Vect = platVect;
+							var arr2 = Vect.b2Line(ob, v1);
+							//0 point, 1 time, 2 vector to bounce from
+							if(arr2[1] < arr1[1]){
+								arr1 = arr2;
+							}
 						}
+						
 						if(arr1[1] <= 1){
 							//draw bounce vector
 							ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
@@ -253,8 +256,11 @@ package nadilus.orbis.screens.game
 				
 				if(ob.v.p1.y < ob.r){
 					ob.v.dy = Math.abs(ob.v.dy);
-				}else if(ob.v.p1.y > GameConstants.LEVEL_HEIGHT - ob.r){
-					ob.v.dy = -Math.abs(ob.v.dy);
+				}else if(ob.v.p1.y > GameConstants.LEVEL_HEIGHT){
+					//ob.v.dy = -Math.abs(ob.v.dy);
+					this._currentLevel.removeChild(ob);
+					var index:uint = this.orbsActive.indexOf(ob);
+					this.orbsActive.splice(index,1);
 				}
 			}
 			
@@ -301,6 +307,21 @@ package nadilus.orbis.screens.game
 					space = false;
 					break;
 			}
+		}
+		
+		private function getPlatformVectors():Array {
+			var array:Array = new Array();
+			var topleft:Point = new Point(_player.platform.x, _player.platform.y);
+			var bottomleft:Point = new Point(_player.platform.x, _player.platform.y+_player.platform.height);
+			var topright:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y);
+			var bottomright:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y+_player.platform.height);
+			
+			array.push(new Vect(bottomleft, topleft));
+			array.push(new Vect(topright,topleft));
+			array.push(new Vect(topright,bottomright));
+			array.push(new Vect(bottomleft,bottomright));
+			
+			return array;
 		}
 	}
 }

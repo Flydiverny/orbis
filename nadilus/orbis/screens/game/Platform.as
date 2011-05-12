@@ -17,8 +17,8 @@ package nadilus.orbis.screens.game
 		private var xSpeed:Number = 0;
 		private var xFriction:Number = 0.09;
 		private var yFriction:Number = 0.09;
-		private var xPower:Number = 6;
-		private var yPower:Number = 6;
+		private var xPower:Number = 5;
+		private var yPower:Number = 0;
 		
 		public function Platform() {
 			trace("Platform: Platform(): Called");
@@ -32,13 +32,7 @@ package nadilus.orbis.screens.game
 				xSpeed -= f(1);
 			if(right)
 				xSpeed += f(0);
-			if(up)
-				ySpeed -= f(3);
-			if(down)
-				ySpeed += f(2);
-			
-			if(!up && !down && ySpeed != 0)
-				ySpeedDec();
+
 			if(!left && !right && xSpeed != 0)
 				xSpeedDec();
 			
@@ -47,14 +41,6 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function movementConstraints():void {
-			//Lower Block
-			if(this.y > GameConstants.LEVEL_HEIGHT-this.height*1.5)
-				this.y = GameConstants.LEVEL_HEIGHT-this.height*1.5;
-			
-			//Upper Block
-			if(this.y < GameConstants.LEVEL_HEIGHT-this.height*1.5)
-				this.y = GameConstants.LEVEL_HEIGHT-this.height*1.5;
-			
 			//Left Block
 			if(this.x+xSpeed < 5) {
 				this.xSpeed = 0;
@@ -73,34 +59,19 @@ package nadilus.orbis.screens.game
 				return xPower-xFriction*xSpeed;
 			else if(what == 1)
 				return xPower+xFriction*xSpeed;
-			else if(what == 2)
-				return yPower-yFriction*ySpeed;
-			else if(what == 3)
-				return yPower+yFriction*ySpeed;
 			else
 				return 0;
 		}
 		
 		private function xSpeedDec():void {
 			if(xSpeed > 0) {
-				xSpeed -= xFriction*xPower*7;
+				xSpeed -= xFriction*xFriction*xPower;
 			}
 			if(xSpeed < 0) {
-				xSpeed += xFriction*xPower*7;
+				xSpeed += xFriction*xPower;
 			}
 			if(xSpeed < 1 && xSpeed > -1)
 				xSpeed = 0;
-		}
-		
-		private function ySpeedDec():void {
-			if(ySpeed > 0) {
-				ySpeed -= yFriction*yPower*7;
-			}
-			if(ySpeed < 0) {
-				ySpeed += yFriction*yPower*7;
-			}
-			if(ySpeed < 1 && ySpeed > -1)
-				ySpeed = 0;
 		}
 	}
 }

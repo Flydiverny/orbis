@@ -29,17 +29,11 @@ package nadilus.orbis.screens.game
 
 		private static var staticSetupBool:Boolean;
 		
-		private static var tracker:Number = 1;
-		
-		public var id:Number;
-		
 		public var vectors:Array;
 		
 		public function Orb(vect:Vect)
 		{
-			this.id = tracker;
-			tracker++;
-			trace("Orb(" + id + "): Orb(): Called: " + vect);
+			trace("Orb: Orb(): Called: " + vect);
 			
 			vectors = new Array();
 			
@@ -52,7 +46,7 @@ package nadilus.orbis.screens.game
 		}
 		
 		public function moveMe() {
-			trace("Orb(" + id + "): moveMe(): v.p0: " + v.p0 + " v.p1: " + v.p1 + " new: v.p0: " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p0 + " v.p1 " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p1);
+			trace("Orb: moveMe(): v.p0: " + v.p0 + " v.p1: " + v.p1 + " new: v.p0: " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p0 + " v.p1 " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p1);
 			v.p0 = v.p1;
 			v = Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed);
 			
@@ -75,7 +69,7 @@ package nadilus.orbis.screens.game
 		}
 		
 		internal function placeMe() {
-			trace("Orb(" + id + "): placeMe(): current: (" + this.x + ", " + this.y + ") new: (" + v.p0.x + ", " + v.p0.y + ")");
+			trace("Orb: placeMe(): current: (" + this.x + ", " + this.y + ") new: (" + v.p0.x + ", " + v.p0.y + ")");
 			this.x = v.p0.x;
 			this.y = v.p0.y;
 		}
@@ -85,7 +79,7 @@ package nadilus.orbis.screens.game
 		}
 		
 		public function get speed():Number {
-			trace("Orb(" + id + "): speed(): _speed: " + _speed + " bounces: " + bounces + " calc speed bonus: " + ((_speed/100+1) + (bounces/100)));
+			trace("Orb: speed(): _speed: " + _speed + " bounces: " + bounces + " calc speed bonus: " + ((_speed/100+1) + (bounces/100)));
 			return (_speed/100+1) + (bounces/100);
 		}
 		
@@ -99,6 +93,10 @@ package nadilus.orbis.screens.game
 		
 		public function set v(value:Vect):void {
 			this.thisV = value;
+		}
+		
+		public function remove():void {
+			parent.removeChild(this);
 		}
 	}
 }

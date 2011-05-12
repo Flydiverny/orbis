@@ -8,6 +8,10 @@ package nadilus.orbis.screens.game
 	import nadilus.orbis.data.BlockType;
 	import nadilus.orbis.vector.Vect;
 	
+	import nadilus.orbis.data.Level;
+	
+	import nadilus.orbis.screens.game.Stats;
+	
 	public class Block extends MovieClip
 	{
 		private var _blockType:BlockType;
@@ -60,29 +64,16 @@ package nadilus.orbis.screens.game
 		
 		public function hitBlock():Boolean {
 			this.hitsTaken++;
-			
+				
 			if(this.hitsTaken  >= _blockType.hitsToBreak) {
-				Utilities.setRGB(this, 0x000000);
-				this.vectors = null;
+				if(parent != null)
+					parent.removeChild(this);
 				return true;
 			}
 
+			var stats = new Stats(Level(this.parent), new Point(this.x,this.y-10), String(_blockType.hitsToBreak - hitsTaken),0xFF0000);
+			
 			return false;
 		}
-		
-		/*public function orbHit(orb:Orb):void {
-			if(_blockType.destroyable) {
-				if(hitsTaken < _blockType.hitsToBreak) {
-					hitsTaken++;
-					orb.bounceBack();
-				}
-				else {
-					parent.removeChild(this); //reward player some socre
-				}
-			} else {
-				orb.bounceBack();
-			}
-			orb.speedMultiply(_blockType.speedMultiplier);
-		}*/
 	}
 }
