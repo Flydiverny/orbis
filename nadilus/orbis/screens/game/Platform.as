@@ -13,19 +13,16 @@ package nadilus.orbis.screens.game
 	public class Platform extends MovieClip
 	{
 		// Movement
-		private var ySpeed:Number = 0;
 		private var xSpeed:Number = 0;
-		private var xFriction:Number = 0.09;
-		private var yFriction:Number = 0.09;
-		private var xPower:Number = 5;
-		private var yPower:Number = 0;
+		private var xFriction:Number = GameConstants.FRICTION;
+		private var xPower:Number = GameConstants.POWER;
 		
 		public function Platform() {
 			trace("Platform: Platform(): Called");
 			Utilities.setHue(this, 500);
 		}
 		
-		public function movePlatform(left:Boolean, right:Boolean, up:Boolean, down:Boolean):void {
+		public function movePlatform(left:Boolean, right:Boolean):void {
 			movementConstraints();
 			
 			if(left)
@@ -37,7 +34,6 @@ package nadilus.orbis.screens.game
 				xSpeedDec();
 			
 			this.x += xSpeed;
-			this.y += ySpeed;
 		}
 		
 		private function movementConstraints():void {
@@ -65,10 +61,10 @@ package nadilus.orbis.screens.game
 		
 		private function xSpeedDec():void {
 			if(xSpeed > 0) {
-				xSpeed -= xFriction*xFriction*xPower;
+				xSpeed -= xFriction*xPower*7;
 			}
 			if(xSpeed < 0) {
-				xSpeed += xFriction*xPower;
+				xSpeed += xFriction*xPower*7;
 			}
 			if(xSpeed < 1 && xSpeed > -1)
 				xSpeed = 0;

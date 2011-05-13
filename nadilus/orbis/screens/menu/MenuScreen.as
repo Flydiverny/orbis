@@ -2,7 +2,6 @@ package nadilus.orbis.screens.menu
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import fl.controls.Button;
 	import flash.events.MouseEvent;
 	
 	import nadilus.orbis.screens.OrbisGame;
@@ -12,19 +11,24 @@ package nadilus.orbis.screens.menu
 	{
 		private var _game:OrbisGame;
 		
-		private var _startBtn:Button;
+		private var _startBtn:MovieClip;
+		private var _credBtn:MovieClip;
 		
 		public function MenuScreen(game:OrbisGame)
 		{
 			this._game			= game;
-			this._startBtn		= start_btn;
+			this._startBtn		= this.newGameBtn;
+			this._credBtn		= this.creditsBtn;
+			
+			this.x += GameConstants.GAMESCREEN_LEFT;
+			this.y += GameConstants.ORBSHOOTER_HEIGHT/2;
 			
 			//this.width			= GameConstants.SCREEN_WIDTH;
 			//this.height			= GameConstants.SCREEN_HEIGHT;
 			
 			_startBtn.addEventListener(MouseEvent.CLICK, startGame, false, 0, true);
 			
-			//_someBtn.addEventListener(MouseEvent.CLICK, startGame, false, 0, true);
+			_credBtn.addEventListener(MouseEvent.CLICK, showCredits, false, 0, true);
 			
 			//_someBtn.addEventListener(MouseEvent.CLICK, startGame, false, 0, true);
 		}
@@ -33,6 +37,10 @@ package nadilus.orbis.screens.menu
 			trace("MenuScreen: startGame(): Called");
 			_startBtn.removeEventListener(MouseEvent.CLICK, startGame);
 			_game.runGameScreen();
+		}
+		
+		private function showCredits(event:MouseEvent) {
+			
 		}
 	}
 }

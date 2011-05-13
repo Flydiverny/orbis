@@ -77,6 +77,10 @@ package nadilus.orbis.data
 		public function get scoreToWin():uint {
 			return _scoreToWin;
 		}
+		
+		public function get maxOrbsToLose():uint {
+			return _maximumOrbsToLose;
+		}
 
 		public function drawLevel(blockTypes:Object):void {			
 			trace("Level: drawLevel(): Called");

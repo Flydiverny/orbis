@@ -66,14 +66,16 @@ package nadilus.orbis.screens.game
 		
 		public function hitBlock():Boolean {
 			this.hitsTaken++;
-				
-			if(this.hitsTaken  >= _blockType.hitsToBreak) {
-				if(parent != null)
-					parent.removeChild(this);
-				return true;
-			}
+			
+			if(this.blockType.destroyable) {
+				if(this.hitsTaken  >= _blockType.hitsToBreak) {
+					if(parent != null)
+						parent.removeChild(this);
+					return true;
+				}
 
-			var stats = new Stats(Level(this.parent), new Point(this.x,this.y-10), String(_blockType.hitsToBreak - hitsTaken),0xFF0000);
+				var stats = new Stats(Level(this.parent), new Point(this.x,this.y-10), String(_blockType.hitsToBreak - hitsTaken),0xFF0000);
+			}
 			
 			return false;
 		}

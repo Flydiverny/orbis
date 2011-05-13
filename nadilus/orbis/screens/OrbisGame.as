@@ -64,6 +64,7 @@ package nadilus.orbis.screens
 			}
 			
 			_activeGameScreen = obj;
+			
 			this.addChild(_activeGameScreen);
 		}
 		

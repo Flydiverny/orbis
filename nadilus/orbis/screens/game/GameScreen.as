@@ -1,8 +1,10 @@
 package nadilus.orbis.screens.game
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -14,6 +16,7 @@ package nadilus.orbis.screens.game
 	import nadilus.orbis.data.GameData;
 	import nadilus.orbis.data.Level;
 	import nadilus.orbis.screens.OrbisGame;
+	import nadilus.orbis.screens.stats.GameStats;
 	import nadilus.orbis.vector.Vect;
 	
 	public class GameScreen extends Sprite
@@ -42,12 +45,21 @@ package nadilus.orbis.screens.game
 		private var curScoreText:TextField;
 		private var goalScoreText:TextField;
 		
+		//Time
 		private var lastOrbSpawn:Number = 0;
 		
 		private var curBounces:uint;
 		private var curBlocksDestroyed:uint;
 		private var curScore:uint;
 		private var curBonusScore:uint;
+		
+		private var _activeMC:MovieClip;
+		
+		private var _nextMapBtn:TextField;
+		
+		private var orbsLost:uint;
+		
+		private var gs:GameStats;
 		
 		public function GameScreen(game:OrbisGame, gameData:GameData, player:Player) {
 			trace("GameScreen: GameScreen(): Called");
@@ -58,7 +70,7 @@ package nadilus.orbis.screens.game
 			this._player		= player;
 			this._orbShooter	= _player.orbShooter;
 			
-			this.graphics.beginFill( 0x0FF000, 1.0 );
+			this.graphics.beginFill( 0x333333, 1.0 );
 			this.graphics.drawRect( 0, 0, GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT);
 			this.graphics.endFill();
 			
@@ -71,22 +83,23 @@ package nadilus.orbis.screens.game
 			this._orbShooter.y		= _orbShooter.height/2-3;
 			
 			setUpTexts();
-			
+													
 			startNextLevel();
 			
 			_game.gStage.addEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			_game.gStage.addEventListener(KeyboardEvent.KEY_UP, keyReleased);
-			this.addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
 		private function setUpTexts():void {
+			trace("GameScreen: setUpTexts(): Called");
 			var currentText:TextField = new TextField();
 			var goalText:TextField = new TextField();
 			this.goalScoreText = new TextField();
+			_nextMapBtn = new TextField();
 						
 			// curScoreText
 			this.curScoreText = new TextField();
-			this.curScoreText.width = 120;
+			this.curScoreText.width = 120/2;
 			this.curScoreText.height = GameConstants.ORBSHOOTER_HEIGHT;
 			this.curScoreText.x = GameConstants.SCREEN_WIDTH-curScoreText.width-GameConstants.GAMESCREEN_RIGHT;
 			this.curScoreText.y = 0;
@@ -94,19 +107,27 @@ package nadilus.orbis.screens.game
 			//Format
 			var format:TextFormat = new TextFormat();
 			format.font = "DS-Digital";
-			format.size = 45;
+			format.color = 0xFF0000;
+			format.size = 45/2;
 			format.align = flash.text.TextFormatAlign.RIGHT;
 			
+			var left:TextFormat = new TextFormat();
+			left.font = "DS-Digital";
+			left.color = 0x00FF00;
+			left.size = 45/2;
+			left.align = flash.text.TextFormatAlign.LEFT;
 			
 			this.curScoreText.defaultTextFormat = format;
 			this.goalScoreText.defaultTextFormat = format;
 			currentText.defaultTextFormat = format;
 			goalText.defaultTextFormat = format;
 			
+			_nextMapBtn.defaultTextFormat = left;
+			
 			// currentText
 			currentText.height = curScoreText.height;
-			currentText.text = "Current:";
-			currentText.width = 165;
+			currentText.text = "Current";
+			currentText.width = 165/2;
 			currentText.x = curScoreText.x - currentText.width;
 			currentText.y = curScoreText.y;
 			
@@ -115,16 +136,22 @@ package nadilus.orbis.screens.game
 			
 			this.goalScoreText.width = curScoreText.width;
 			this.goalScoreText.height = curScoreText.height;
-			this.goalScoreText.x = currentText.x - goalScoreText.width - 20;
+			this.goalScoreText.x = currentText.x - goalScoreText.width - 20/2;
 			this.goalScoreText.y = curScoreText.y;
 			
 			// goalText
 			goalText.height = goalText.height;
-			goalText.text = "Goal:";
-			goalText.width = 100;
+			goalText.text = "Goal";
+			goalText.width = 100/2;
 			goalText.x = goalScoreText.x - goalText.width;
 			goalText.y = goalScoreText.y;
 			
+			_nextMapBtn.text = "Click for Next Level";
+			_nextMapBtn.x = GameConstants.GAMESCREEN_LEFT;
+			_nextMapBtn.y = 0;
+			_nextMapBtn.width = this.width-GameConstants.GAMESCREEN_LEFT-GameConstants.ORBSHOOTER_WIDTH/2;
+			_nextMapBtn.visible = false;
+			_nextMapBtn.addEventListener(MouseEvent.CLICK, skipMap, false, 0, true);
 			
 			
 			//add
@@ -132,10 +159,17 @@ package nadilus.orbis.screens.game
 			this.addChild(currentText);
 			this.addChild(goalScoreText);
 			this.addChild(goalText);
-			
+			this.addChild(_nextMapBtn);
+		}
+		
+		private function skipMap(e:MouseEvent):void {
+			trace("GameScreen: skipMap(): Called");
+			_nextMapBtn.visible=false;
+			gameOver();
 		}
 		
 		private function spawnOrb():void {
+			trace("GameScreen: spawnOrb(): Called");
 			if(orbsMag.length > 0) {
 				var time:Number = Utilities.getTime();
 				if((lastOrbSpawn + GameConstants.ORBSHOOTER_RELOAD/orbsMag.length*2) < time) {
@@ -150,12 +184,28 @@ package nadilus.orbis.screens.game
 			}
 		}
 		
+		public function nextLevel():void {
+			if(_currentLvlNum < _levels.length) {
+				startNextLevel();
+			}
+		}
+		
 		private function startNextLevel():void {
 			trace("GameScreen: startNextLevel(): Called");
 			if(_currentLevel != null) {
 				_currentLevel.removeChild(_player.platform);
-				this.removeChild(_currentLevel);
+				if(_activeMC != null)
+					this.removeChild(_activeMC);
+				
+				if(gs != null) {
+					this.removeChild(gs);
+					gs = null;
+				}
 				this.removeChild(_orbShooter);
+				
+				for each(var ob:Orb in this.orbsMag) {
+					this.removeChild(ob);
+				}
 			}
 			
 			// Draw Level
@@ -177,25 +227,41 @@ package nadilus.orbis.screens.game
 			for(var i:uint = 0; i < _currentLevel.initialOrbCount; i++) {
 				this.orbsMag.push(new Orb(new Vect(new Point(0,0), new Point(0,0))));
 				orbsMag[i].x = GameConstants.GAMESCREEN_LEFT/2;
-				orbsMag[i].y = GameConstants.SCREEN_HEIGHT-(orbsMag[i].height+10)*(i+1);
+				orbsMag[i].y = GameConstants.SCREEN_HEIGHT-(orbsMag[i].height+5)*(i+1);
 				this.addChild(orbsMag[i]);
 			}
 			
-			this.addChild(_currentLevel);
+			_activeMC = _currentLevel;
+			
+			_currentLvlNum++;
+			curBounces = 0;
+			curBlocksDestroyed = 0;
+			curScore = 0;
+			curBonusScore = 0;
+			
+			var format:TextFormat = new TextFormat();
+			format.color = 0xFF0000;
+			this.curScoreText.defaultTextFormat = format;
+			
+			this._nextMapBtn.visible = false;
+			
+			this.addChild(_activeMC);
 			this.addChild(_orbShooter);
+			this.addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
 		private function enterFrame(event:Event):void {
-			_player.platform.movePlatform(left,right,up,down);
+			_player.platform.movePlatform(left,right);
+			_player.orbShooter.rotateOrbshooter(left,right);
 						
-			if(left) {
+			/*if(up) {
 				if(_player.orbShooter.rotation < 75)
 					_player.orbShooter.rotation += 2;
 			}
-			if(right) {
+			if(down) {
 				if(_player.orbShooter.rotation > -75)
 					_player.orbShooter.rotation -= 2;
-			}
+			}*/
 				
 			if(space) {
 				spawnOrb();
@@ -344,10 +410,19 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function blockHit(block:Block, destroyed:Boolean):void {
+			trace("GameScreen: blockHit(): Called: " + block + " " + destroyed);
 			this.curBounces++;
 			if(destroyed) {
 				this.curBlocksDestroyed++;
 				this.curScore += block.blockType.score;
+				
+				if(this.curScore >= _currentLevel.scoreToWin) {
+					var format:TextFormat = new TextFormat();
+					format.color = 0x00FF00;
+					this.curScoreText.defaultTextFormat = format;
+					this._nextMapBtn.visible = true;
+				}
+				
 				this.curScoreText.text = String(curScore);
 				
 				if(this.curBlocksDestroyed == _currentLevel.amountDestroyableBlocks) {
@@ -361,7 +436,7 @@ package nadilus.orbis.screens.game
 			var index:uint = this.orbsActive.indexOf(ob);
 			this.orbsActive.splice(index,1);
 			
-			if(this.orbsMag.length == 0) {
+			if(this.orbsMag.length == 0 || this.orbsLost > _currentLevel.maxOrbsToLose) {
 				if(this.orbsActive.length == 0) {
 					gameOver();
 				}
@@ -369,16 +444,23 @@ package nadilus.orbis.screens.game
 		}
 		
 		private function gameOver():void {
+			trace("GameScreen: gameOver(): Called");
 			if(this.curScore >= _currentLevel.scoreToWin) {
+				this.removeEventListener(Event.ENTER_FRAME, enterFrame);
+				
 				for each(var orb:Orb in this.orbsActive) {
-					curBonusScore += GameConstants.ORB_BONUSSCORE * this.orbsActive.length;
+					curBonusScore += GameConstants.ORB_BONUSSCORE;
 					this.curScoreText.text = String(this.curScore + this.curBonusScore);
 				}
+				
+				_player.addBounces(this.curBounces);
+				_player.addBlocksDestroyed(this.curBlocksDestroyed);
+				_player.addTotalScore(this.curScore + this.curBonusScore);
+				
+				gs = new GameStats(this, this._player, this.curBlocksDestroyed,this.curScore, this.curBonusScore, this.curBounces);
+				
+				this.addChild(gs);
 			}
-
-			_player.addBounces(this.curBounces);
-			_player.addBlocksDestroyed(this.curBlocksDestroyed);
-			_player.addTotalScore(this.curScore + this.curBonusScore);
 		}
 		
 		private function keyPressed(event:KeyboardEvent):void {
@@ -428,7 +510,7 @@ package nadilus.orbis.screens.game
 			var topright:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y);
 			var bottomright:Point = new Point(_player.platform.x+_player.platform.width, _player.platform.y+_player.platform.height);
 			
-			array.push(new Vect(bottomleft, topleft));
+			array.push(new Vect(topleft, bottomleft));
 			array.push(new Vect(topright,topleft));
 			array.push(new Vect(topright,bottomright));
 			array.push(new Vect(bottomleft,bottomright));
