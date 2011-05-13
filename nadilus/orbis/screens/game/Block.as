@@ -6,11 +6,9 @@ package nadilus.orbis.screens.game
 	import nadilus.orbis.GameConstants;
 	import nadilus.orbis.Utilities;
 	import nadilus.orbis.data.BlockType;
-	import nadilus.orbis.vector.Vect;
-	
 	import nadilus.orbis.data.Level;
-	
 	import nadilus.orbis.screens.game.Stats;
+	import nadilus.orbis.vector.Vect;
 	
 	public class Block extends MovieClip
 	{
@@ -60,6 +58,10 @@ package nadilus.orbis.screens.game
 			
 			vectors.push(rightWall);
 			vectors.push(botWall);
+		}
+		
+		public function get blockType():BlockType {
+			return this._blockType;
 		}
 		
 		public function hitBlock():Boolean {

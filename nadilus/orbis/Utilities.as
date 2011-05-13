@@ -29,6 +29,11 @@ package nadilus.orbis
 			}
 		}
 		
+		public static function getTime():Number
+		{
+			return new Date().getTime();
+		}
+		
 		public static function createHueShiftColorMatrixFilter(angle:Number):ColorMatrixFilter
 		{
 			trace("Utilities: createHueShiftColorMatrixFilter(): Called: " + angle);

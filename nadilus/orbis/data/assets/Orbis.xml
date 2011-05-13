@@ -6,7 +6,7 @@
 		</BlockType>
 	</BlockTypes>
 	<Levels>
-		<Level ScoreToWin="10000" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="75" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="__10____01__"></BlockLine>
 				<BlockLine Blocks="__01____10__"></BlockLine>

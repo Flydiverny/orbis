@@ -8,6 +8,11 @@ package nadilus.orbis.screens.game
 		
 		private var _currentScore:uint;
 		
+		private var _totalBounces:uint;
+		private var _totalBlocksDestroyed:uint;
+		
+		private var _totalScore:uint;
+		
 		public function Player() {
 			trace("Player: Player(): Called");
 			this._platform = new Platform();
@@ -29,5 +34,31 @@ package nadilus.orbis.screens.game
 		public function set currentScore(value:uint):void {
 			this._currentScore = value;	
 		}
+		
+		public function addBlocksDestroyed(value:uint):void {
+			this._totalBlocksDestroyed += value;
+		}
+		
+		public function addBounces(value:uint):void {
+			this._totalBounces += value;
+		}
+		
+		public function get totalBounces():uint {
+			return _totalBounces;
+		}
+		
+		public function get totalBlocksDestroyed():uint {
+			return _totalBlocksDestroyed;
+		}
+		
+		
+		public function addTotalScore(value:uint):void {
+			this._totalScore += value;
+		}
+		
+		public function get totalScore():uint {
+			return _totalScore;
+		}
+		
 	}
 }

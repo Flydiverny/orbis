@@ -1,18 +1,18 @@
 package nadilus.orbis.data
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	import flash.xml.XMLNode;
 	
 	import nadilus.orbis.GameConstants;
 	import nadilus.orbis.Utilities;
 	import nadilus.orbis.screens.game.Block;
-	import flash.geom.Point;
-	import flash.display.MovieClip;
 	import nadilus.orbis.screens.game.Orb;
 
 	public class Level extends MovieClip
 	{
-		private var _scoreToWin:uint;
+		private var _scorePercentToWin:uint;
 		private var _initialOrbCount:uint;
 		private var _maximumOrbsToLose:uint;
 		private var _specialsCount:uint;
@@ -32,6 +32,14 @@ package nadilus.orbis.data
 		public var bottomRightBlocks:Array;
 		
 		public var centerPoint:Point;
+		
+		public var amountDestroyableBlocks:uint;
+		public var amountUnbreakableBlocks:uint;
+		public var amountBlocks:uint;
+		public var maxScore:uint;
+		public var minBounces:uint;
+		
+		private var _scoreToWin:uint;
 		
 		public function Level() {
 			trace("Level: Level(): Called");
@@ -65,10 +73,12 @@ package nadilus.orbis.data
 		{
 			return _initialOrbCount;
 		}
+		
+		public function get scoreToWin():uint {
+			return _scoreToWin;
+		}
 
-		public function drawLevel(blockTypes:Object):void {
-			trace("this.x " + this.x + " this.y " + this.y + " this.height " + this.height + " this.width " + this.width);
-			
+		public function drawLevel(blockTypes:Object):void {			
 			trace("Level: drawLevel(): Called");
 			if(_levelDrawn == false) {
 				var blockRow:uint = 0;
@@ -148,15 +158,49 @@ package nadilus.orbis.data
 					}
 				}
 			}
+			
+			generateMapStatistics();
+		}
+		
+		private function generateMapStatistics():void {
+			trace("Level: generateMapStatistics(): Called");
+			var tot:uint = 0;
+			var unb:uint = 0;
+			var brk:uint = 0;
+			var score:uint = 0;
+			var bncs:uint = 0;
+		 
+			for each(var line:Array in _blocks) {
+				for each(var block:Block in line) {
+					tot++;
+					
+					if(!block.blockType.destroyable) {
+						unb++;
+						continue;
+					}
+					brk++;
+					score += block.blockType.score;
+					bncs += block.blockType.hitsToBreak;
+				}
+			}
+			
+			
+			this.amountBlocks = tot;
+			this.amountDestroyableBlocks = brk;
+			this.amountUnbreakableBlocks = unb;
+			
+			this.maxScore = score;
+			this._scoreToWin = maxScore*this._scorePercentToWin/100;
+			this.minBounces = bncs;
 		}
 		
 		public static function constructFromXmlNode(node:XMLNode):Level {
 			trace("Level: constructFromXmlNode(): Called");
 			var level:Level = new Level();
 			
-			if(node.attributes.ScoreToWin != null) {
-				trace("Level: constructFromXmlNode(): Attribute Found: ScoreToWin");
-				level._scoreToWin = node.attributes.ScoreToWin;
+			if(node.attributes.ScorePercentToWin != null) {
+				trace("Level: constructFromXmlNode(): Attribute Found: ScorePercentToWin");
+				level._scorePercentToWin = node.attributes.ScorePercentToWin;
 			}
 			
 			if(node.attributes.InitialOrbCount != null) {
@@ -215,10 +259,6 @@ package nadilus.orbis.data
 			}
 	
 			return level;
-		}
-		
-		public function removeOrb(ob:Orb) {
-			//this.removeChild(ob);
 		}
 	}
 }
