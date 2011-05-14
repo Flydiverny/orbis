@@ -12,6 +12,7 @@ package nadilus.orbis.screens
 	import nadilus.orbis.screens.game.Player;
 	import nadilus.orbis.screens.loading.LoadingScreen;
 	import nadilus.orbis.screens.menu.MenuScreen;
+	import nadilus.orbis.screens.menu.CreditsScreen;
 	
 	public class OrbisGame extends Sprite
 	{
@@ -51,6 +52,12 @@ package nadilus.orbis.screens
 			trace("OrbisGame: runMenuScreen(): Called");
 			changeActiveGameScreen(new MenuScreen(this));
 		}
+		
+		public function runCreditsScreen():void {
+			trace("OrbisGame: runCreditsScreen(): Called");
+			changeActiveGameScreen(new CreditsScreen(this));
+		}
+		
 		
 		public function runGameScreen():void {
 			trace("OrbisGame: runGameScreen(): Called");

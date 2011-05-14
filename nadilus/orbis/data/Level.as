@@ -1,5 +1,7 @@
 package nadilus.orbis.data
 {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -41,6 +43,9 @@ package nadilus.orbis.data
 		
 		private var _scoreToWin:uint;
 		
+		[Embed(source="assets/levelbg.png")]
+		protected const Picture:Class;
+		
 		public function Level() {
 			trace("Level: Level(): Called");
 			this._scoreToWin		= 1;
@@ -56,9 +61,15 @@ package nadilus.orbis.data
 			this.special_OrbSplit	= true;
 			
 			
-			this.graphics.beginFill( 0x000000, 1.0 );
+			/*this.graphics.beginFill( 0x000000, 1.0 );
 			this.graphics.drawRect( 0, 0, GameConstants.LEVEL_WIDTH, GameConstants.LEVEL_HEIGHT);
-			this.graphics.endFill();
+			this.graphics.endFill();*/
+			
+			var bitmap:Bitmap = new Picture();
+			bitmap.height = GameConstants.LEVEL_HEIGHT;
+			bitmap.width = GameConstants.LEVEL_WIDTH;
+			
+			this.addChild(bitmap);
 			
 			this.width				= GameConstants.LEVEL_WIDTH;
 			this.height				= GameConstants.LEVEL_HEIGHT;
@@ -85,6 +96,7 @@ package nadilus.orbis.data
 		public function drawLevel(blockTypes:Object):void {			
 			trace("Level: drawLevel(): Called");
 			if(_levelDrawn == false) {
+				_blocks = new Array();
 				var blockRow:uint = 0;
 				
 				var yincrement = this.height/2/blockSymbols.length;
@@ -161,9 +173,19 @@ package nadilus.orbis.data
 						}
 					}
 				}
+				
+				generateMapStatistics();
+				_levelDrawn = true;
+			} else {
+				for each(var line:Array in _blocks) {
+					for each(var block:Block in line) {
+						if(block.parent != null) this.removeChild(block);
+					}
+				}
+				
+				_levelDrawn = false;
+				drawLevel(blockTypes);
 			}
-			
-			generateMapStatistics();
 		}
 		
 		private function generateMapStatistics():void {
