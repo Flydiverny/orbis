@@ -17,6 +17,7 @@ package nadilus.orbis.screens.menu
 		
 		public function MenuScreen(game:OrbisGame)
 		{
+			trace("MenuScreen: MenuScreen(): Called");
 			this._game			= game;
 			this._startBtn		= this.newGameBtn;
 			this._credBtn		= this.creditsBtn;
@@ -36,11 +37,11 @@ package nadilus.orbis.screens.menu
 		
 		private function startGame(event:MouseEvent) {
 			trace("MenuScreen: startGame(): Called");
-			_startBtn.removeEventListener(MouseEvent.CLICK, startGame);
 			_game.runGameScreen();
 		}
 		
 		private function showCredits(event:MouseEvent) {
+			trace("MenuScreen: showCredits(): Called");
 			_game.runCreditsScreen();
 		}
 	}
