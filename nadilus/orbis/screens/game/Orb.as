@@ -78,8 +78,8 @@ package nadilus.orbis.screens.game
 		}
 		
 		public function get speed():Number {
-			trace("Orb: speed(): _speed: " + _speed + " bounces: " + bounces + " calc speed bonus: " + ((_speed/100+1) + (bounces/100)));
-			return (_speed/100+1) + (bounces/100);
+			trace("Orb: speed(): _speed: " + _speed + " bounces: " + bounces + " calc speed bonus: " + ((_speed/100+1) + ((bounces/100)*2)));
+			return (_speed/100+1) + ((bounces/100)*2);
 		}
 		
 		public function get v():Vect {

@@ -330,7 +330,7 @@ package nadilus.orbis.screens.game
 						p1 = new Point(ob.v.p0.x + ob.v.vx * t, ob.v.p0.y + ob.v.vy * t);
 						p2 = new Point(oc.v.p0.x + oc.v.vx * t, oc.v.p0.y + oc.v.vy * t);
 					}
-					
+				
 					var v:Vect = new Vect(p2, p1);
 					var vn:Vect = Vect.vFrom1Point(v.p0, v.lx, v.ly);
 					var proj1a:Vect = Vect.projectVector(ob.v, v);

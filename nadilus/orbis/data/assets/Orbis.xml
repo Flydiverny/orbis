@@ -10,7 +10,7 @@
 		<BlockType Symbol="7" Score="50" SpeedMultiplier="1" Destroyable="true" HitsToBreak="2" SpecialChance="75" HueShiftAngle="250"></BlockType>
 	</BlockTypes>
 	<Levels>
-		<Level ScorePercentToWin="5" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="50" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="__22____22__"></BlockLine>
 				<BlockLine Blocks="__12____21__"></BlockLine>
@@ -27,7 +27,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="5" InitialOrbCount="3" MaximumOrbsToLose="2" SpecialsCount="4">
+		<Level ScorePercentToWin="50" InitialOrbCount="3" MaximumOrbsToLose="2" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="__02____20__"></BlockLine>
 				<BlockLine Blocks="__20____02__"></BlockLine>
@@ -40,7 +40,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="5" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="50" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="______2222______"></BlockLine>
 				<BlockLine Blocks="______2222______"></BlockLine>
@@ -59,45 +59,48 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="5" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="50" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="__100122221001__"></BlockLine>
-				<BlockLine Blocks="__100122221001__"></BlockLine>
+				<BlockLine Blocks="__10012221001__"></BlockLine>
 				<BlockLine Blocks="___01______10___"></BlockLine>
-				<BlockLine Blocks="___01______10___"></BlockLine>
+				<BlockLine Blocks="___01_____10___"></BlockLine>
 				<BlockLine Blocks="____10____01____"></BlockLine>
-				<BlockLine Blocks="____10____01____"></BlockLine>
+				<BlockLine Blocks="____10___01____"></BlockLine>
 				<BlockLine Blocks="_____01__10_____"></BlockLine>
-				<BlockLine Blocks="_____01__10_____"></BlockLine>
+				<BlockLine Blocks="_____01_10_____"></BlockLine>
 				<BlockLine Blocks="______0110______"></BlockLine>
-				<BlockLine Blocks="______0110______"></BlockLine>
+				<BlockLine Blocks="______010______"></BlockLine>
 				<BlockLine Blocks="_______00_______"></BlockLine>
-				<BlockLine Blocks="_______00_______"></BlockLine>
+				<BlockLine Blocks="0"></BlockLine>
 			</BlockLines>
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="4" InitialOrbCount="8" MaximumOrbsToLose="6" SpecialsCount="4">
+				<Level ScorePercentToWin="50" InitialOrbCount="3" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
-				<BlockLine Blocks="_"></BlockLine>
-				<BlockLine Blocks="_______22_______"></BlockLine>
-				<BlockLine Blocks="_______22_______"></BlockLine>
-				<BlockLine Blocks="______2112______"></BlockLine>
-				<BlockLine Blocks="______0110______"></BlockLine>
-				<BlockLine Blocks="_____21__12_____"></BlockLine>
-				<BlockLine Blocks="_____01__10_____"></BlockLine>
-				<BlockLine Blocks="____20____02____"></BlockLine>
-				<BlockLine Blocks="____10____01____"></BlockLine>
-				<BlockLine Blocks="___21______12___"></BlockLine>
-				<BlockLine Blocks="___01______10___"></BlockLine>
-				<BlockLine Blocks="__100122221001__"></BlockLine>
-				<BlockLine Blocks="__100122221001__"></BlockLine>
+				<BlockLine Blocks="____22_______22____"></BlockLine>
+				<BlockLine Blocks="_____32______23_____"></BlockLine>
+				<BlockLine Blocks="_____45_____54_____"></BlockLine>
+				<BlockLine Blocks="______76____67______"></BlockLine>
+				<BlockLine Blocks="_________22_________"></BlockLine>
+				<BlockLine Blocks="_________2_________"></BlockLine>
+				<BlockLine Blocks="_00_____________00_"></BlockLine>
+				<BlockLine Blocks="__21____________12__"></BlockLine>
+				<BlockLine Blocks="__12___________21__"></BlockLine>
+				<BlockLine Blocks="___23__________32___"></BlockLine>
+				<BlockLine Blocks="___34_________43___"></BlockLine>
+				<BlockLine Blocks="____25________52____"></BlockLine>
+				<BlockLine Blocks="_______26__62_______"></BlockLine>
+				<BlockLine Blocks="_______27_72_______"></BlockLine>
+				<BlockLine Blocks="________2662________"></BlockLine>
+				<BlockLine Blocks="________272________"></BlockLine>
 			</BlockLines>
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="6" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="65" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="_"></BlockLine>
@@ -106,19 +109,37 @@
 				<BlockLine Blocks="_4004____1001_"></BlockLine>
 				<BlockLine Blocks="__11______11__"></BlockLine>
 				<BlockLine Blocks="_"></BlockLine>
+				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="65432123456"></BlockLine>
+				<BlockLine Blocks="6543223456"></BlockLine>
 			</BlockLines>
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="5" InitialOrbCount="6" MaximumOrbsToLose="4" SpecialsCount="4">
+		<Level ScorePercentToWin="40" InitialOrbCount="8" MaximumOrbsToLose="6" SpecialsCount="4">
+			<BlockLines>
+				<BlockLine Blocks="2"></BlockLine>
+				<BlockLine Blocks="_______22_______"></BlockLine>
+				<BlockLine Blocks="______212______"></BlockLine>
+				<BlockLine Blocks="______0110______"></BlockLine>
+				<BlockLine Blocks="_____21_12_____"></BlockLine>
+				<BlockLine Blocks="_____01__10_____"></BlockLine>
+				<BlockLine Blocks="____20___02____"></BlockLine>
+				<BlockLine Blocks="____10____01____"></BlockLine>
+				<BlockLine Blocks="___21_____12___"></BlockLine>
+				<BlockLine Blocks="___01______10___"></BlockLine>
+				<BlockLine Blocks="__10012221001__"></BlockLine>
+				<BlockLine Blocks="__100122221001__"></BlockLine>
+			</BlockLines>
+			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
+		</Level>
+		
+		<Level ScorePercentToWin="50" InitialOrbCount="6" MaximumOrbsToLose="4" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_____7___7_____"></BlockLine>
 				<BlockLine Blocks="____7_7_7_7____"></BlockLine>
-				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="___4_11211_4___"></BlockLine>
 				<BlockLine Blocks="__2_________2__"></BlockLine>
-				<BlockLine Blocks="_22_________22_"></BlockLine>
 				<BlockLine Blocks="_22__66_66__22_"></BlockLine>
 				<BlockLine Blocks="_22__66_66__22_"></BlockLine>
 				<BlockLine Blocks="__24_______42__"></BlockLine>
