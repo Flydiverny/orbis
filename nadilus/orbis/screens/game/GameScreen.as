@@ -322,6 +322,7 @@ package nadilus.orbis.screens.game
 				}
 				var t = arr1[1];
 				if(t <= 1){
+					ob.bounce();
 					if(t == 0){
 						var p1:Point = arr1[0];
 						var p2:Point = arr1[2];
@@ -387,6 +388,7 @@ package nadilus.orbis.screens.game
 				        //draw bounce vector
 						ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
 						ob.v.p1 = arr1[0];
+						ob.bounce();
 						if(hitBlock != null) {
 							
 							var dest:Boolean = hitBlock.hitBlock();
@@ -414,6 +416,7 @@ package nadilus.orbis.screens.game
 							//draw bounce vector
 							ob.v = Vect.bounce(ob.v, arr1[2], arr1[0]);
 							ob.v.p1 = arr1[0];
+							ob.bounce();
 						}
 					}
 				}
@@ -421,12 +424,15 @@ package nadilus.orbis.screens.game
 				//edges
 				if(ob.v.p1.x < ob.r){
 					ob.v.dx = Math.abs(ob.v.dx);
+					ob.bounce();
 				}else if(ob.v.p1.x > GameConstants.LEVEL_WIDTH - ob.r){
 					ob.v.dx = -Math.abs(ob.v.dx);
+					ob.bounce();
 				}
 				
 				if(ob.v.p1.y < ob.r){
 					ob.v.dy = Math.abs(ob.v.dy);
+					ob.bounce();
 				}else if(ob.v.p1.y > GameConstants.LEVEL_HEIGHT){
 					//ob.v.dy = -Math.abs(ob.v.dy);
 					removeOrb(ob);
@@ -490,7 +496,7 @@ package nadilus.orbis.screens.game
 				_player.addBlocksDestroyed(this.curBlocksDestroyed);
 				_player.addTotalScore(this.curScore + this.curBonusScore);
 				
-				if(this._currentLvlNum < _levels.length) {
+				if(this._currentLvlNum+1 < _levels.length) {
 					gs = new GameStats(this, this._player, this.curBlocksDestroyed,this.curScore, this.curBonusScore, this.curBounces);
 				}
 				else {

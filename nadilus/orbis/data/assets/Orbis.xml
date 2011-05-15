@@ -10,7 +10,7 @@
 		<BlockType Symbol="7" Score="50" SpeedMultiplier="1" Destroyable="true" HitsToBreak="2" SpecialChance="75" HueShiftAngle="250"></BlockType>
 	</BlockTypes>
 	<Levels>
-		<Level ScorePercentToWin="50" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="5" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="__22____22__"></BlockLine>
 				<BlockLine Blocks="__12____21__"></BlockLine>
@@ -27,7 +27,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="50" InitialOrbCount="3" MaximumOrbsToLose="2" SpecialsCount="4">
+		<Level ScorePercentToWin="5" InitialOrbCount="3" MaximumOrbsToLose="2" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="__02____20__"></BlockLine>
 				<BlockLine Blocks="__20____02__"></BlockLine>
@@ -40,7 +40,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="50" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="5" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="______2222______"></BlockLine>
 				<BlockLine Blocks="______2222______"></BlockLine>
@@ -59,7 +59,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="50" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="5" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="__100122221001__"></BlockLine>
@@ -78,7 +78,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="40" InitialOrbCount="8" MaximumOrbsToLose="6" SpecialsCount="4">
+		<Level ScorePercentToWin="4" InitialOrbCount="8" MaximumOrbsToLose="6" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="_______22_______"></BlockLine>
@@ -97,7 +97,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="65" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
+		<Level ScorePercentToWin="6" InitialOrbCount="5" MaximumOrbsToLose="3" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_"></BlockLine>
 				<BlockLine Blocks="_"></BlockLine>
@@ -111,7 +111,7 @@
 			<SpecialsPool SpeedUp="true" SpeedDown="true" OrbSplit="true"></SpecialsPool>
 		</Level>
 		
-		<Level ScorePercentToWin="50" InitialOrbCount="6" MaximumOrbsToLose="4" SpecialsCount="4">
+		<Level ScorePercentToWin="5" InitialOrbCount="6" MaximumOrbsToLose="4" SpecialsCount="4">
 			<BlockLines>
 				<BlockLine Blocks="_____7___7_____"></BlockLine>
 				<BlockLine Blocks="____7_7_7_7____"></BlockLine>

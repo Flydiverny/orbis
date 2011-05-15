@@ -34,6 +34,7 @@ package nadilus.orbis.screens.game
 			trace("Orb: Orb(): Called: " + vect);
 			
 			vectors = new Array();
+			this.bounces = 0;
 			
 			this.v = vect;
 			this.v.vx = v.dx;
@@ -44,7 +45,7 @@ package nadilus.orbis.screens.game
 		}
 		
 		public function moveMe() {
-			trace("Orb: moveMe(): v.p0: " + v.p0 + " v.p1: " + v.p1 + " new: v.p0: " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p0 + " v.p1 " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p1);
+			//trace("Orb: moveMe(): v.p0: " + v.p0 + " v.p1: " + v.p1 + " new: v.p0: " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p0 + " v.p1 " + Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed).p1);
 			v.p0 = v.p1;
 			v = Vect.vFrom1Point(v.p0, v.dx*speed, v.dy*speed);
 			
@@ -91,6 +92,10 @@ package nadilus.orbis.screens.game
 		
 		public function set v(value:Vect):void {
 			this.thisV = value;
+		}
+		
+		public function bounce():void {
+			this.bounces++;
 		}
 		
 		public function remove():void {
